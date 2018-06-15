@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!-- 设置为IUserDao接口方法提供sql语句配置 -->
+<mapper namespace="com.pay.school.dao.SchoolDao">
+
+    <resultMap id="BaseResultMap" type="com.pay.school.entity.SchoolInfo">
+        <!--
+          WARNING - @mbg.generated
+        -->
+        <id column="id" jdbcType="INTEGER" property="id" />
+        <result column="school_name" jdbcType="VARCHAR" property="schoolName" />
+        <result column="school_icon" jdbcType="VARCHAR" property="schoolIcon" />
+        <result column="school_icon_type" jdbcType="VARCHAR" property="schoolIconType" />
+        <result column="school_stdcode" jdbcType="VARCHAR" property="schoolStdcode" />
+        <result column="school_type" jdbcType="VARCHAR" property="schoolType" />
+        <result column="province_code" jdbcType="VARCHAR" property="provinceCode" />
+        <result column="province_name" jdbcType="VARCHAR" property="provinceName" />
+        <result column="city_code" jdbcType="VARCHAR" property="cityCode" />
+        <result column="city_name" jdbcType="VARCHAR" property="cityName" />
+        <result column="district_code" jdbcType="VARCHAR" property="districtCode" />
+        <result column="district_name" jdbcType="VARCHAR" property="districtName" />
+        <result column="isv_name" jdbcType="VARCHAR" property="isvName" />
+        <result column="isv_notify_url" jdbcType="VARCHAR" property="isvNotifyUrl" />
+        <result column="isv_pid" jdbcType="VARCHAR" property="isvPid" />
+        <result column="isv_phone" jdbcType="VARCHAR" property="isvPhone" />
+        <result column="school_pid" jdbcType="VARCHAR" property="schoolPid" />
+    </resultMap>
+
+    <select id="getSchoolById" resultType="com.pay.school.entity.SchoolInfo" parameterType="com.pay.school.entity.SchoolInfo">
+        SELECT * FROM school_info WHERE id = #{id}
+    </select>
+
+    <select id="getSchoolBySchoolNo" resultType="com.pay.school.entity.SchoolInfo" parameterType="java.lang.String">
+        SELECT * FROM school_info WHERE school_no = #{schoolNo}
+    </select>
+
+    <!-- 新增-->
+    <insert id="addSchoolInfo" parameterType="com.pay.school.entity.SchoolInfo" >
+            insert into school_info
+            (school_name,school_icon,school_icon_type,school_stdcode,school_type,province_code,province_name,city_code,city_name,district_code,district_name,isv_name,isv_notify_url,isv_pid,isv_phone,school_pid,school_no)
+            VALUES
+            (#{school.schoolName},#{school.schoolIcon},#{school.schoolIconType},#{school.schoolStdcode},#{school.schoolType},#{school.provinceCode},#{school.provinceName},
+            #{school.cityCode},#{school.cityName},#{school.districtCode},#{school.districtName},#{school.isvName},#{school.isvNotifyUrl},#{school.isvPid},#{school.isvPhone},#{school.schoolPid},#{school.schoolNo})
+
+    </insert>
+
+    <insert id="addStudentBill" parameterType="java.util.List">
+        insert into student_bill
+        (bill_id,
+        student_identify, out_trade_no,
+        school_no,child_name,
+        grade,class_in, student_code,
+        charge_type, amount, gmt_end,
+        end_enable, charge_item, charge_bill_title,
+        phone,partner_id,users
+        )
+        VALUES
+        <foreach collection="studentBills" item="studentBill" index="index" separator=",">
+            (
+            #{id},
+            #{studentBill.studentIdentify}, #{studentBill.outTradeNo},
+            #{studentBill.schoolNo}, #{studentBill.childName},
+            #{studentBill.grade}, #{studentBill.classIn}, #{studentBill.studentCode},
+            #{studentBill.chargeType}, #{studentBill.amount}, #{studentBill.gmtEnd},
+            #{studentBill.endEnable}, #{studentBill.chargeItem}, #{studentBill.chargeBillTitle},
+            #{studentBill.phone},#{studentBill.partnerId},#{studentBill.users}
+            )
+        </foreach>
+    </insert>
+
+    <insert id="addBill" useGeneratedKeys="true" keyProperty="bill.id" parameterType="com.pay.school.entity.Bill">
+            INSERT INTO bill
+            (
+            bill_name,import_time,phone
+            )
+            VALUES
+            (
+            #{bill.billName},#{bill.importTime},#{bill.phone}
+            )
+    </insert>
+
+    <select id="getListBill" resultType="com.pay.school.entity.Bill" parameterType="com.pay.school.entity.Bill">
+        SELECT * FROM bill WHERE phone = #{phone}
+    </select>
+
+    <select id="getStudentBillById" resultType="com.pay.school.entity.StudentBill" parameterType="java.lang.Integer">
+        SELECT * FROM student_bill WHERE bill_id = #{id}
+    </select>
+
+    <update id="updateBillById" parameterType="java.lang.String">
+        UPDATE student_bill
+        <set>
+            <if test="orderNo!=null">
+                order_no=#{orderNo}
+            </if>
+        </set>
+        WHERE id = #{id}
+    </update>
+
+
+    <update id="updateBill" parameterType="java.lang.Integer">
+        UPDATE bill
+        <set>
+            state=1
+        </set>
+        WHERE id = #{bill_id}
+    </update>
+</mapper>

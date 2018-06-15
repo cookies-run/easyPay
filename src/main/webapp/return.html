@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>授权成功</title>
+  <Script language="javascript">
+    function GetRequest() {
+      var url = location.search; //获取url中"?"符后的字串
+      var theRequest = new Object();
+      if (url.indexOf("?") != -1) {
+        var str = url.substr(1);
+        strs = str.split("&");
+        for(var i = 0; i < strs.length; i ++) {
+          theRequest[strs[i].split("=")[0]]=unescape(strs[i].split("=")[1]);
+        }
+      }
+      return theRequest;
+    }
+
+    var Request = new Object();
+    Request = GetRequest();
+    var app_id, source, app_auth_code;
+    app_id = Request['app_id'];
+    source = Request['source'];
+    app_auth_code = Request['app_auth_code'];
+    console.log(app_auth_code);
+    //app_auth_code使用一次后失效，一天（从生成app_auth_code开始的24小时）未被使用自动过期；
+
+
+
+  </Script>
+</head>
+<style>
+  .father {line-height: 350px;text-align: center;}
+  .son {display: inline-block;}
+</style>
+<body>
+
+<div style="float:left;width: 100%;text-align: center">支付认证成功</div>
+
+<div class="father" style="float:left;width: 100%;">
+
+  <div class="son" style="float: left;width: 45%">
+    <div style="float: left;width: 100%;text-align: center;height: 300px;">
+      <img src="https://gw.alipayobjects.com/zos/skylark/public/files/aba5a4140db03aa1eb6c0b14b48da586.png">
+    </div>
+  </div>
+  <div class="son" style="float: left;">或</div>
+  <div class="son" style="float: left;width: 45%;text-align: center">
+    <div>
+      <a href="https://openauth.alipay.com/oauth2/appToAppAuth.htm?app_id=2016112803504802&redirect_uri=https://k12jiaofei.alipay-eco.com/callback/home" target="_blank">点击进行K12授权</a>
+    </div>
+
+  </div>
+</div>
+
+<div style="float: left;width: 100%;text-align: left;margin-left: 13%;font-size: larger">
+  <a href="/#/home/checkPower" >返回</a>
+</div>
+
+<script src="assets/js/jquery.js"></script>
+<script language="javascript"
+>
+  function commitAuthCode() {
+    $.ajax({
+      type: "GET",
+      url: "authorize/getAuthToken",
+      data: {
+        app_auth_code: app_auth_code
+      },
+      dataType: "text",
+      success: function (data) {
+
+          var res = JSON.parse(data);
+          if(res.suc){
+            $("button").attr("disabled", true);
+            sessionStorage.setItem("appauthtoken",app_auth_code);
+          }
+      }
+    })
+  }
+  if(app_auth_code!==null){
+    commitAuthCode(app_auth_code);
+  }
+</script>
+</body>
+
+</html>

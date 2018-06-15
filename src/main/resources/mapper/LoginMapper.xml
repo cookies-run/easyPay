@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!-- 设置为IUserDao接口方法提供sql语句配置 -->
+<mapper namespace="com.pay.user.dao.LoginDao">
+
+    <resultMap id="BaseResultMap" type="com.pay.user.entity.User">
+        <constructor>
+            <idArg column="phone" javaType="java.lang.String" jdbcType="VARCHAR" />
+            <arg column="password" javaType="java.lang.String" jdbcType="VARCHAR" />
+            <arg column="role" javaType="java.lang.String" jdbcType="VARCHAR" />
+            <arg column="email" javaType="java.lang.String" jdbcType="VARCHAR" />
+            <arg column="school_no" javaType="java.lang.String" jdbcType="VARCHAR" />
+            <arg column="appAuthToken" javaType="java.lang.String" jdbcType="VARCHAR" />
+        </constructor>
+    </resultMap>
+    <sql id="Base_Column_List">
+        phone, password, role, email, school_no, appAuthToken
+    </sql>
+
+    <select id="selectId" resultMap="BaseResultMap" parameterType="java.lang.String">
+        SELECT
+        <include refid="Base_Column_List"/>
+        FROM USER
+        WHERE phone = #{phone}
+    </select>
+
+    <update id="addAliAuthToken" parameterType="java.lang.String">
+        UPDATE user
+        <set>
+            <if test="appAuthToken!=null">
+                appAuthToken=#{appAuthToken}
+            </if>
+        </set>
+        WHERE phone = #{phone}
+    </update>
+
+    <update id="updateSchoolNo" parameterType="java.lang.String">
+        UPDATE user
+        <set>
+            <if test="schoolNo!=null">
+                school_no=#{schoolNo}
+            </if>
+        </set>
+        WHERE phone = #{phone}
+    </update>
+
+    <insert id="register" useGeneratedKeys="true" keyProperty="user.phone" parameterType="com.pay.user.entity.User">
+        INSERT INTO user
+        (
+        phone,password,role
+        )
+        VALUES
+        (
+        #{user.phone},#{user.password},"user"
+        )
+    </insert>
+
+    <select id="getUserList"  resultType="com.pay.user.entity.User">
+        SELECT * FROM USER
+        WHERE role != "admin"
+    </select>
+
+    <delete id="deleteUser" parameterType="java.lang.String">
+        DELETE FROM USER WHERE phone = #{phone}
+    </delete>
+
+</mapper>

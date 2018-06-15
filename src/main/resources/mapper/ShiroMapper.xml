@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!-- 设置为IUserDao接口方法提供sql语句配置 -->
+<mapper namespace="com.pay.school.dao.ShiroDao">
+
+    <select id="getShiroAppAuthToken" resultType="java.lang.String" parameterType="java.lang.String">
+        SELECT
+        appAuthToken
+        FROM USER
+        WHERE phone = #{phone}
+    </select>
+
+    <select id="getShiroSchoolNo" resultType="java.lang.String" parameterType="java.lang.String">
+        SELECT
+        school_no
+        FROM USER
+        WHERE phone = #{phone}
+    </select>
+
+</mapper>

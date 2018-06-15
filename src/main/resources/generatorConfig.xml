@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE generatorConfiguration
+        PUBLIC "-//mybatis.org//DTD MyBatis Generator Configuration 1.0//EN"
+        "http://mybatis.org/dtd/mybatis-generator-config_1_0.dtd">
+
+<generatorConfiguration>
+    <properties resource="jdbc.properties"/>
+
+    <context id="Mysql" targetRuntime="tk.mybatis.mapper.generator.TkMyBatis3Impl" defaultModelType="flat">
+
+        <plugin type="${mapper.plugin}">
+            <property name="mappers" value="${mapper.Mapper}"/>
+        </plugin>
+
+        <jdbcConnection driverClass="${jdbc.driver}"
+                        connectionURL="${jdbc.url}"
+                        userId="${jdbc.username}"
+                        password="${jdbc.password}">
+        </jdbcConnection>
+
+        <!--允许数值类型转换成不同类型,否则都映射为BigDecimal -->
+        <javaTypeResolver type="org.mybatis.generator.internal.types.JavaTypeResolverDefaultImpl">
+            <property name="forceBigDecimals" value="false" />
+        </javaTypeResolver>
+
+        <!-- pay为工程名 -->
+        <!-- com.pay.school.entity为javabean存放目录 -->
+        <!-- 模型文件 -->
+        <javaModelGenerator targetPackage="com.pay.school.entity"
+                            targetProject="src/auto">
+            <property name="enableSubPackages" value="false" />
+            <!-- 当为true时，产生的代码文件将按照schema产生子文件夹 -->
+            <property name="trimStrings" value="true" />
+            <!-- set变量时自动剔除空白 -->
+        </javaModelGenerator>
+        <!-- XML映射文件 -->
+        <!-- com.pay.school.xml为SQL配置存放目录 -->
+        <sqlMapGenerator targetPackage="com.pay.school.mapper"
+                         targetProject="src/auto">
+            <property name="enableSubPackages" value="false" />
+        </sqlMapGenerator>
+
+        <!-- DAO文件(mapper接口) -->
+        <!-- com.pay.school.dao为SQL对应接口存入目录 -->
+        <javaClientGenerator targetPackage="com.pay.school.dao"
+                             targetProject="src/auto" type="XMLMAPPER">
+            <property name="enableSubPackages" value="false" />
+        </javaClientGenerator>
+
+        <!-- 数据库表 -->
+        <!-- 可以一次性配置多个表处理 -->
+        <!-- 后面发现去掉table中的schema属性就可以了.. 经测试,如果数据库用的是Oracle,SqlServer需要去掉schema属性,MySQL则不需要去掉-->
+        <table schema="mybatis" tableName="student_bill" domainObjectName="StudentBill">
+            <property name="useActualColumnNames" value="false"></property>
+            <property name="constructorBased" value="true"/>
+            <property name="useActualColumnNames" value="false"/>
+            <property name="ignoreQualifiersAtRuntime" value="true"/>
+        </table>
+    </context>
+</generatorConfiguration>
