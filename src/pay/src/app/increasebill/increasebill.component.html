@@ -1,0 +1,42 @@
+<div class="schoolInfoTitle">
+    <nz-upload  [nzFileType]="'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet,application/vnd.ms-excel'" [nzShowUploadList]="false"
+    [nzBeforeUpload]="beforeUpload">
+     <button nz-button [nzType]="'primary'">
+       <i class="anticon anticon-upload"></i><span>上传账单</span>
+     </button>
+   </nz-upload>
+   <!-- <button nz-button [nzType]="'primary'" style="margin-left:20px;"  (click)='edit()'>
+       <i class="anticon anticon-edit"></i><span>自定义账单</span>
+   </button> -->
+   <button nz-button [nzType]="'primary'" style="float:right;" (click)='download()'>
+       <i class="anticon anticon-paper-clip"></i><span>下载账单模板</span>
+   </button>
+  </div>
+
+  <div class="filelist">
+    <nz-table  #nzTable [nzDataSource]="fileList" [nzPageSize]="10">
+      <thead nz-thead>
+        <tr>
+          <th nz-th [nzWidth]="'40%'"><span>名称</span></th>
+          <th nz-th [nzWidth]="'30%'"><span>大小</span></th>
+          <th nz-th [nzWidth]="'30%'"><span>操作</span></th>
+        </tr>
+      </thead>
+      <tbody nz-tbody>
+        <tr nz-tbody-tr *ngFor="let data of fileList">
+          <td nz-td>
+            <a>{{data.name}}</a>
+          </td>
+          <td nz-td>{{data.size}}</td>
+          <td nz-td>
+            <span>
+              <a (click)='delet(data)'>删除</a>
+            </span>
+          </td>
+        </tr>
+      </tbody>
+    </nz-table>
+  </div>
+  <button nz-button [nzType]="'primary'" [nzLoading]="uploading" (click)="handleUpload()" [disabled]="fileList.length == 0" style="margin-top: 16px;float:right;">
+    {{ uploading ? '上传中' : '发送账单' }}
+  </button>

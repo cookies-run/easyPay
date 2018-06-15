@@ -1,0 +1,23 @@
+  <div class='container-fluid mainbody' >
+	   <div class='row col-md-4 showDelay'>
+	   	 <div class='col-md-12 logoBox'>
+	   		  <div><img src="./assets/img/logo.jpg"></div>
+	   	 </div>
+	   	 <div class='col-md-10 col-md-offset-1 userInfoInput'>
+	   		<input  type='text' placeholder='手机' [(ngModel)]="params.phone">
+	   	 </div>
+	   	 <div class='col-md-10 col-md-offset-1 userInfoInput'>
+	   		<input type='password' placeholder='密码' [(ngModel)]="params.password">
+	   	 </div>
+	   	 <div class='col-md-10 col-md-offset-1 userInfoInput'>
+	   	 	<div class='btn btn-info' (click)="Login()">登录</div>
+	   	 </div>
+       <div class='col-md-10 col-md-offset-1'>
+          <div class="hintContent">{{hintContent}}</div>
+	   	 </div>
+	   </div>
+     <div class="website">
+       苏ICP备18025915号 联系电话：0527-87024016
+     </div>
+  </div>
+

@@ -1,0 +1,25 @@
+<div class="schoolInfoTitle"><i class="anticon anticon-team"></i>学生信息</div>
+<nz-table #nzTable [nzDataSource]="data" [nzPageSize]="10">
+      <thead nz-thead>
+        <tr>
+          <th nz-th><span>序号</span></th>
+          <th nz-th><span>班级</span></th>
+          <th nz-th><span>年级</span></th>
+          <th nz-th><span>操作</span></th>
+        </tr>
+      </thead>
+      <tbody nz-tbody>
+        <tr nz-tbody-tr *ngFor="let data of nzTable.data">
+          <td nz-td>
+            <a>{{data.name}}</a>
+          </td>
+          <td nz-td>{{data.age}}</td>
+          <td nz-td>{{data.address}}</td>
+          <td nz-td>
+            <span>
+              <a (click)='checkDetail(data)'>查看</a>
+            </span>
+          </td>
+        </tr>
+      </tbody>
+    </nz-table>

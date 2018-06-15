@@ -1,0 +1,52 @@
+<div class="schoolInfoTitle"><i class="anticon anticon-edit"></i>学生信息</div>
+<nz-table #nzTable [nzDataSource]="data" [nzPageSize]="10">
+     <thead nz-thead>
+       <tr>
+         <th nz-th [nzWidth]="'20%'"><span>学号</span></th>
+         <th nz-th [nzWidth]="'20%'"><span>姓名</span></th>
+         <th nz-th [nzWidth]="'20%'"><span>性别</span></th>
+         <th nz-th [nzWidth]="'20%'"><span>班级</span></th>
+         <th nz-th><span>操作</span></th>
+       </tr>
+     </thead>
+     <tbody nz-tbody>
+       <tr nz-tbody-tr *ngFor="let data of nzTable.data">
+         <td nz-td>
+           <span *ngIf="editRow!==data.key">{{data.key}}</span>
+           <span *ngIf="editRow===data.key">
+             <nz-input [(ngModel)]="tempEditObject[data.key].key"></nz-input>
+           </span>
+         </td>
+         <td nz-td>
+           <span *ngIf="editRow!==data.key">{{data.name}}</span>
+           <span *ngIf="editRow===data.key">
+             <nz-input [(ngModel)]="tempEditObject[data.key].name"></nz-input>
+           </span>
+         </td>
+         <td nz-td>
+           <span *ngIf="editRow!==data.key">{{data.sex}}</span>
+           <span *ngIf="editRow===data.key">
+             <nz-input [(ngModel)]="tempEditObject[data.key].sex"></nz-input>
+           </span>
+         </td>
+         <td nz-td>
+           <span *ngIf="editRow!==data.key">{{data.address}}</span>
+           <span *ngIf="editRow===data.key">
+             <nz-input [(ngModel)]="tempEditObject[data.key].address"></nz-input>
+           </span>
+         </td>
+         <td nz-td>
+           <span *ngIf="editRow!==data.key">
+             <a (click)="edit(data)">修改</a>
+           </span>
+           <span *ngIf="editRow===data.key">
+             <a (click)="save(data)">保存</a>
+             <span nz-table-divider></span>
+               <nz-popconfirm [nzTitle]="'确定取消？'" (nzOnConfirm)="cancel(data)">
+                 <a nz-popconfirm>取消</a>
+               </nz-popconfirm>
+           </span>
+         </td>
+       </tr>
+     </tbody>
+   </nz-table>

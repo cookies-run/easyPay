@@ -1,0 +1,59 @@
+<div class="mainbody">
+  <div class="schoolInfoTitle"><i class="anticon anticon-edit"></i>学校信息录入</div>
+    <form>
+         <div class=" form-group col-md-8 col-md-offset-2 firstFormGroup">
+             <label ><i class="anticon anticon-star-o"></i>学校名称</label>
+             <input type="text" class="form-control"   placeholder="请输入学校名称（必填）" [(ngModel)]='params.schoolName' name='schoolName'  [disabled]="editable">
+         </div>
+         <div class=" form-group col-md-8 col-md-offset-2">
+             <label ><i class="anticon anticon-fork"></i>学校的类型</label>
+             <nz-select style="width: 70%; float:right;" [(ngModel)]="params.schoolType" [nzSize]="'large'" [nzMode]="'multiple'" [nzPlaceHolder]="'请选择学校类型（必填）'" name='schoolType'   [nzDisabled]="editable">
+                 <nz-option
+                    *ngFor="let option of options"
+                    [nzLabel]="option.type"
+                    [nzValue]="option.id"
+                    [nzDisabled]="editable"
+                    >
+                  </nz-option>
+             </nz-select>
+         </div>
+         <div class="form-group col-md-8 col-md-offset-2">
+            <label><i class="anticon anticon-environment-o"></i>学校的所在地</label>
+           <nz-cascader style="width: 70%; float:right;"
+              [(ngModel)]="params.address"
+              [nzOptions]="_options"
+              [nzPlaceHolder] = "'请选择地区(必填)'"
+              (nzSelectionChange)="_console($event)"
+              name='province'
+              [nzDisabled]="editable">
+            </nz-cascader>
+         </div>
+         <div class="form-group col-md-8 col-md-offset-2">
+            <label><i class="anticon anticon-trademark"></i>商家名称</label>
+            <input type="text" class="form-control" [(ngModel)]="params.isvName" required placeholder="请输入商家名称（必填）" name='isvName'  [disabled]="editable">
+         </div>
+         <div class="form-group col-md-8 col-md-offset-2">
+            <label ><i class="anticon anticon-ie"></i>通知地址</label>
+            <input type="text" class="form-control" [(ngModel)]="params.isvNotifyUrl" required  placeholder="请输入通知地址（必填）" name='isvNotifyUrl'  [disabled]="editable">
+         </div>
+         <div class="form-group col-md-8 col-md-offset-2">
+            <label><i class="anticon anticon-credit-card"></i>商家支付宝PID</label>
+            <input type="text" class="form-control" [(ngModel)]="params.isvPid" required  placeholder="请输入商家支付账号（必填）" name='isvPid'  [disabled]="editable">
+         </div>
+         <div class="form-group col-md-8 col-md-offset-2">
+            <label ><i class="anticon anticon-mobile"></i>联系方式</label>
+            <input type="text" class="form-control" [(ngModel)]="params.isvPhone" required  placeholder="请输入联系方式（必填）" name='isvPhone' [disabled]="editable">
+         </div>
+         <div class="form-group col-md-8 col-md-offset-2">
+            <label ><i class="anticon anticon-pay-circle-o"></i>学校缴费PID</label>
+            <input type="text" class="form-control" [(ngModel)]="params.schoolPid" required  placeholder="请输入学校缴费账号（必填）" name='schoolPid' [disabled]="editable">
+         </div>
+         <div class="col-md-4 col-md-offset-4" *ngIf='!editable'>
+           <button nz-button [nzType]="'primary'" (click)="loadOne($event)" [nzSize]="'large'" [nzLoading]="isLoadingOne">
+              <span>提交</span>
+           </button>
+         </div>
+         <div class="clear"></div>
+
+    </form>
+</div>

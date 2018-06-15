@@ -1,0 +1,39 @@
+<nz-layout class="layout">
+	<nz-sider nzCollapsible [(nzCollapsed)]="isCollapsed" [nzCollapsedWidth]="0" [nzBreakpoint]="'lg'">
+		 <div class="logo">
+			 校收通
+		 </div>
+		 <ul nz-menu [nzTheme]="'dark'" [nzMode]="isCollapsed?'vertical':'inline'" *ngIf="!admin">
+			 <li nz-menu-item (click)="goPage('checkPower')"><span><i class="anticon anticon-api"></i><span class="nav-text">首页</span></span></li>
+			 <li nz-menu-item (click)="goPage('SchoolInfo')"><span><i class="anticon anticon-schedule"></i><span class="nav-text">学校信息</span></span></li>
+			 <li nz-menu-item (click)="goPage('PengdingBills')"><span><i class="anticon anticon-calendar"></i><span class="nav-text">账单</span></span></li>
+			 <li nz-menu-item (click)="goPage('addbill')"><span><i class="anticon anticon-folder-add"></i><span class="nav-text">新增账单</span></span></li>
+			 <!--<li nz-menu-item (click)="goPage('studInfo')"><span><i class="anticon anticon-team"></i><span class="nav-text">学生信息</span></span></li>-->
+			 <!--<li nz-menu-item (click)="goPage('hisbill')"><span><i class="anticon anticon-sync"></i><span class="nav-text">历史账单</span></span></li>-->
+		 </ul>
+    <ul nz-menu [nzTheme]="'dark'" [nzMode]="isCollapsed?'vertical':'inline'" *ngIf="admin">
+      <li nz-menu-item (click)="goPage('UserList')"><span><i class="anticon anticon-api"></i><span class="nav-text">用户管理</span></span></li>
+    </ul>
+	 </nz-sider>
+		 <nz-layout>
+			 <nz-header class="head">
+				 <i class="anticon trigger" [class.anticon-menu-fold]="!isCollapsed" [class.anticon-menu-unfold]="isCollapsed" (click)="isCollapsed=!isCollapsed"></i>
+				 <div class="headTitlt">
+           欢迎使用校收通
+         </div>
+         <div class="user"><span class="userName">用户：{{phone}}</span>
+           <button nz-button [nzType]="'danger'" style="margin-left:20px;" (click)="logout()">
+             <span>退出</span>
+           </button>
+         </div>
+			 </nz-header>
+			 <nz-content style="margin:0 16px;height:auto">
+				 <nz-breadcrumb style="margin:12px 0;">
+				 </nz-breadcrumb>
+				 <div class='childrenOutLet'>
+					 <router-outlet></router-outlet>
+				 </div>
+			 </nz-content>
+			  <nz-footer style="text-align: center;">苏ICP备18025915号 联系电话：0527-87024016 </nz-footer>
+		 </nz-layout>
+	 </nz-layout>

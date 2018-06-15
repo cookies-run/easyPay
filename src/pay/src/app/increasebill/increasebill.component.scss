@@ -1,0 +1,16 @@
+@import "~styles/variables.scss";
+
+.schoolInfoTitle {
+  width: 100%;
+  padding-left: 20px;
+  border-bottom: 1px dashed #cecbcb;
+  padding-bottom: 10px;
+}
+.filelist {
+   width: 100%;
+   min-height: auto;
+}
+
+:host ::ng-deep .ant-table-placeholder {
+   display: none;
+ }
