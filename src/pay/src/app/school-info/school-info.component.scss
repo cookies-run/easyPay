@@ -32,12 +32,12 @@
    height: 40px;
  }
 
+:host ::ng-deep .ant-select-arrow {
+   display: none;
+}
 
-.form-control {
-  float: right;
-  display: inline-block;
-  width: 70%;
-  height: 40px;
+:host ::ng-deep .has-success.has-feedback:after, .has-warning.has-feedback:after, .has-error.has-feedback:after, .is-validating.has-feedback:after {
+   line-height: 40px !important;
 }
 
 .mainbody {
@@ -52,21 +52,18 @@
        color: #3ba0e9;
      }
    }
-   .firstFormGroup {
-     margin-top: 25px;
-   }
-   label {
-     font-size: 16px;
-     margin-top: 5px;
-     i {
-       margin-right: 10px;
-       color: #3ba0e9;
-     }
-   }
-   .col-md-4 {
+  .formLabel {
+    height: 40px;
     display: flex;
     align-items: center;
+    justify-content: flex-end;
+    i {
+      margin-right: 14px;
+      color: #3ba0e9;
+    }
+  }
+  .submitButton {
+    display: flex;
     justify-content: center;
-    margin-top: 40px;
-   }
+  }
 }

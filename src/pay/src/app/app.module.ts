@@ -14,7 +14,7 @@ import { AppComponent } from './app.component';
 import {AppService} from './app.service'; // 自定义服务模块
 import { LoginComponent } from './loginpage/loginpage.component';
 import { QRCodeModule } from 'angular2-qrcode';
-
+import { NgZorroAntdModule } from 'ng-zorro-antd';
 
 @NgModule({
   declarations:[
@@ -30,7 +30,8 @@ import { QRCodeModule } from 'angular2-qrcode';
     BrowserAnimationsModule,
     QRCodeModule,
     AppRoutingModule,
-    CommonModule
+    CommonModule,
+    NgZorroAntdModule.forRoot()
   ],
   providers: [{provide: LocationStrategy, useClass: HashLocationStrategy}, AppService],
   bootstrap: [AppComponent]

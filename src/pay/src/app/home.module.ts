@@ -7,7 +7,7 @@ import {HttpClientModule}  from'@angular/common/http';
 import { AuthGuard } from './auth-guard.service'; //路由守卫
 import { ReactiveFormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
-
+import { NgZorroAntdModule } from 'ng-zorro-antd';
 
 import {AppService} from './app.service'; // 自定义服务模块
 import { HeaderComponent } from './header/header.component';
@@ -23,7 +23,6 @@ import { FixStudentInfoComponent } from './fix-student-info/fix-student-info.com
 import { PengdingBillsComponent } from './pengding-bills/pengding-bills.component';
 import { BillsDetailComponent } from './bills-detail/bills-detail.component';
 import { ManagerComponent } from './manager/manager.component';
-import { NgZorroAntdModule } from 'ng-zorro-antd';
 import {UserListComponent} from "./user-list/user-list.component"; //zrrro ui 组件
 
 @NgModule({
@@ -50,7 +49,7 @@ import {UserListComponent} from "./user-list/user-list.component"; //zrrro ui �
     CommonModule,
     QRCodeModule,
     HomeRoutingModule,
-    NgZorroAntdModule.forRoot()
+    NgZorroAntdModule
   ],
   providers: [{provide: LocationStrategy, useClass: HashLocationStrategy}, AppService, AuthGuard],
 

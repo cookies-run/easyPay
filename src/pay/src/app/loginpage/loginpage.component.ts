@@ -3,6 +3,7 @@ import { Router, NavigationEnd } from '@angular/router';
 import {Md5} from "ts-md5/dist/md5";
 import {AppService} from '../app.service';
 import {slideInOutAnimation} from '../app-routingAnimation'
+import {FormBuilder,FormGroup,Validators} from '@angular/forms';
 
 @Component({
   selector: 'loginpage',
@@ -12,30 +13,22 @@ import {slideInOutAnimation} from '../app-routingAnimation'
   host: { '[@slideInOutAnimation]': '' }
 })
 export class LoginComponent {
-    public params:any = {
-        phone :'',
-        password:''
-    }
     public endpoint:string = 'login/loginIn?';
-    public hintContent:string = '';
+    public hintContent:string = '登录';
+    validateForm: FormGroup;
 
+    constructor(private router: Router,private appService:AppService,private fb: FormBuilder) {}
 
-    constructor(private router: Router,private appService:AppService) {}
     Login () {
-       if(this.params.phone ==''){
-          this.hintContent ='登录名不能为空';
-         return;
-       }
-       if(this.params.password ==''){
-         this.hintContent ='password is invalid';
-         return;
-       }
-       this.params.password=Md5.hashStr(this.params.password);
-          this.loginService(this.endpoint,this.params);
-         // sessionStorage.setItem('phone', 'this.params.phone');
-         // this.router.navigate(['/home/checkPower']);
+        for (const i in this.validateForm.controls) {
+          this.validateForm.controls[ i ].markAsDirty();
+        }
+        if(this.validateForm.valid){
+          this.validateForm.value.password=Md5.hashStr(this.validateForm.value.password);
+          this.hintContent = '正在登录'
+          this.loginService(this.endpoint,this.validateForm.value);
+        }
     }
-
      loginService(endpoint,params): void {
         this.appService.get(endpoint,params).subscribe(data => {
           var res = data.json().data;
@@ -56,13 +49,17 @@ export class LoginComponent {
             }
 
           }else{
-            this.hintContent = data.json().msg;
+            this.hintContent = '登录失败,请重新尝试'
           }
           });
      }
 
    ngOnInit(): void {
       sessionStorage.clear();
+      this.validateForm = this.fb.group({
+          phone: [ null, [ Validators.required ] ],
+          password: [ null, [ Validators.required ] ]
+      });
      }
 
 }

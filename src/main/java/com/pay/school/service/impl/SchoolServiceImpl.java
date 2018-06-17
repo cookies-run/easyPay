@@ -2,8 +2,10 @@ package com.pay.school.service.impl;
 
 import com.alipay.api.AlipayApiException;
 import com.alipay.api.AlipayClient;
+import com.alipay.api.request.AlipayEcoEduKtBillingQueryRequest;
 import com.alipay.api.request.AlipayEcoEduKtBillingSendRequest;
 import com.alipay.api.request.AlipayEcoEduKtSchoolinfoModifyRequest;
+import com.alipay.api.response.AlipayEcoEduKtBillingQueryResponse;
 import com.alipay.api.response.AlipayEcoEduKtBillingSendResponse;
 import com.alipay.api.response.AlipayEcoEduKtSchoolinfoModifyResponse;
 import com.pay.alipay.utils.PrivateKeySignature;
@@ -56,12 +58,14 @@ public class SchoolServiceImpl implements SchoolService {
     private ShiroDao shiroDao;
 
     private static String ISV_PID = "";
+    private static String ISV_PHONE = "";
 
     static{
         Properties properties = new Properties();
         try {
             properties = PropertiesLoaderUtils.loadAllProperties("key.properties");
             ISV_PID = properties.getProperty("isv.pid");
+            ISV_PHONE = properties.getProperty("isv.phone");
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -97,9 +101,9 @@ public class SchoolServiceImpl implements SchoolService {
                 "  \"district_name\":\""+school.getDistrictName()+"\",\n" +
                 "  \"isv_name\":\""+school.getIsvName()+"\",\n" +
                 "  \"isv_notify_url\":\""+school.getIsvNotifyUrl()+"\",\n" +
-                "  \"isv_pid\":\""+school.getIsvPid()+"\",\n" +
+                "  \"isv_pid\":\""+ISV_PID+"\",\n" +
                 "  \"school_pid\":\""+school.getSchoolPid()+"\",\n" +
-                "  \"isv_phone\":\""+school.getIsvPhone()+"\",\n" +
+                "  \"isv_phone\":\""+ISV_PHONE+"\",\n" +
                 "}");//设置业务参数
         try {
             AlipayEcoEduKtSchoolinfoModifyResponse response = alipayClient.execute(request);
@@ -192,6 +196,7 @@ public class SchoolServiceImpl implements SchoolService {
                 try {
                     AlipayEcoEduKtBillingSendResponse response = alipayClient.execute(request);
                     if(response.isSuccess()){
+                        //
                         //插入order_no值
                        int i = schoolDao.updateBillById(s.getId(),response.getOrderNo());
                     }else{
@@ -217,6 +222,29 @@ public class SchoolServiceImpl implements SchoolService {
     public JsonResult getStudentBill(Integer id) {
         JsonResult jsonResult = null;
         List<StudentBill> studentBills = schoolDao.getStudentBillById(id);
+        AlipayClient alipayClient = PrivateKeySignature.getClient();
+        User user = getShiroUser();
+        String schoolNo = shiroDao.getShiroSchoolNo(user.getPhone());
+        String schoolPId = shiroDao.getShiroSchoolPId(schoolNo);
+        for(StudentBill bean: studentBills){
+            //循环查询账单状态
+            AlipayEcoEduKtBillingQueryRequest request = new AlipayEcoEduKtBillingQueryRequest();
+            request.setBizContent("{" +
+                    "\"isv_pid\":\""+ISV_PID+"\"," +
+                    "\"school_pid\":\""+schoolPId+"\"," +
+                    "\"out_trade_no\":\""+bean.getOutTradeNo()+"\"" +
+                    "  }");
+            try {
+                AlipayEcoEduKtBillingQueryResponse response = alipayClient.execute(request);
+                if(response.isSuccess()){
+                    bean.setOrderStatus(response.getOrderStatus());
+                } else {
+                    bean.setOrderStatus("UNKNOWN");
+                }
+            } catch (AlipayApiException e) {
+                e.printStackTrace();
+            }
+        }
         if(null!=studentBills&&studentBills.size()>0){
             jsonResult = new JsonResult(studentBills,"查询成功",true);
         }else{

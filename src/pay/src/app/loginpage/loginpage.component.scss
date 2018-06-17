@@ -1,20 +1,26 @@
 @import "~styles/variables.scss";
-
-.mainbody {
-  background: url('../../assets/img/LoginBgImg.jpg') 100% 100% no-repeat;
-  background-size:100% 100%;
-  display:flex;
-  flex-wrap: nowrap;
-  flex-direction: column ;
-  justify-content:space-between;
-  align-items: center;
-  .row {
-    height: 300px;
-    background-color: rgba(43, 23, 23, 0.33);
-    opacity: .9;
+.mainbodyTwo {
+   height: 100%;
+   background: #eee;
+  .footer {
+    background:#e7e8eb;
+    text-align: center;
+  }
+  .header {
+    background:#fff;
+    font-size:25px;
+    text-align: center;
+  }
+  .content {
+    background: url('../../assets/img/LoginBgImg.jpg') 100% 100% no-repeat;
+    background-attachment: fixed;
+    background-size: cover;
+    display:flex;
+    justify-content:center;
+    align-items: center;
     .logoBox {
       height: 100px;
-      margin-top: 10px;
+      margin-bottom: 15px;
       div {
         margin: 0 auto;
         width: 100px;
@@ -27,76 +33,20 @@
         }
       }
     }
-    .userInfoInput {
-       height: 35px;
-       margin-top:10px;
-       line-height: 35px;
-    }
-    input {
-      width: 100%;
-      height: 100%;
-      outline: none;
-      color: #8a8a8a;
-      padding-top: 5px;
-      padding-left: 35px;
-      font-size: 16px;
-      border: none;
-      border-radius: 4px;
-    }
-    input[type='text'] {
-      background: url('../../assets/img/user.png')  no-repeat;
-      background-size:18px 18px;
-      background-position: 3% 50%;
-      background-color: #fff;
-      line-height: 35px;
-    }
-
-     input[type='password'] {
-      background: url('../../assets/img/password.png')  no-repeat;
-      background-size:18px 18px;
-      background-position: 3% 50%;
-      background-color: #fff;
-    }
-
-    .btn {
-      width: 100%;
-      font-size: 18px;
-    }
-    .col-md-3 {
-      div{
-         margin-top: 15px;
-         float: right;
-         color: #000;
-         cursor: pointer;
-      }
-    }
-    .hintContent {
-       height: 30px;
+      .login-form {
+      width: 400px;
+      height: 350px;
+     }
+     .login-form-button {
        width: 100%;
-       color:red;
-       text-align:center;
-       line-height: 30px;
+     }
     }
+    @media screen and (min-width: 300px) and (max-width: 1024px) {
+      .login-form {
+        padding: 0 30px;
+      }
+      .contentTitle {
+         display:none !important;
+      }
+   }
   }
-  .showDelay {
-         animation: showDelay 1s ease-in  normal backwards;
-         -webkit-animation: showDelay 1s ease-in  normal backwards;
-         animation-delay:.6s;
-         -webkit-transform: translate3d(0,0,0); //硬件加速
-         transform: translate3d(0,0,0); //硬件加速
-        }
-
-     @keyframes showDelay {
-        0% {  opacity: 0;}
-        100% { opacity: 1;}
-     }
-
-     @-webkit-keyframes showDelay {
-       0% {  opacity: 0;}
-       100% { opacity: 1;}
-     }
-     .website {
-       position: absolute;
-       bottom: 30px;
-     }
-}

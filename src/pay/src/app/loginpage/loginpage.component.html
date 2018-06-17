@@ -1,23 +1,36 @@
-  <div class='container-fluid mainbody' >
-	   <div class='row col-md-4 showDelay'>
-	   	 <div class='col-md-12 logoBox'>
-	   		  <div><img src="./assets/img/logo.jpg"></div>
-	   	 </div>
-	   	 <div class='col-md-10 col-md-offset-1 userInfoInput'>
-	   		<input  type='text' placeholder='手机' [(ngModel)]="params.phone">
-	   	 </div>
-	   	 <div class='col-md-10 col-md-offset-1 userInfoInput'>
-	   		<input type='password' placeholder='密码' [(ngModel)]="params.password">
-	   	 </div>
-	   	 <div class='col-md-10 col-md-offset-1 userInfoInput'>
-	   	 	<div class='btn btn-info' (click)="Login()">登录</div>
-	   	 </div>
-       <div class='col-md-10 col-md-offset-1'>
-          <div class="hintContent">{{hintContent}}</div>
-	   	 </div>
-	   </div>
-     <div class="website">
-       苏ICP备18025915号 联系电话：0527-87024016
-     </div>
-  </div>
-
+  <nz-layout class="mainbodyTwo">
+      <nz-header class="header">宿迁云猫电子商务有限公司</nz-header>
+      <nz-content class="content">
+        <form nz-form [formGroup]="validateForm" class="login-form" (ngSubmit)="Login()">
+          <div class='logoBox'>
+            <div><img src="./assets/img/logo.jpg"></div>
+          </div>
+          <div nz-form-item>
+            <div nz-form-control>
+              <nz-input formControlName="phone" [nzPlaceHolder]="'手机'" [nzSize]="'large'" style="height:40px;">
+                <ng-template #prefix>
+                  <i class="anticon anticon-user"></i>
+                </ng-template>
+              </nz-input>
+              <div nz-form-explain *ngIf="validateForm.controls.phone.dirty&&validateForm.controls.phone.hasError('required')">请输入你的手机号!</div>
+            </div>
+          </div>
+          <div nz-form-item>
+            <div nz-form-control>
+              <nz-input formControlName="password" [nzType]="'password'" [nzPlaceHolder]="'密码'" [nzSize]="'large'" style="height:40px;">
+                <ng-template #prefix>
+                  <i class="anticon anticon-lock"></i>
+                </ng-template>
+              </nz-input>
+              <div nz-form-explain *ngIf="validateForm.controls.password.dirty&&validateForm.controls.password.hasError('required')">请输入你的密码!</div>
+            </div>
+          </div>
+          <div nz-form-item>
+            <div nz-form-control>
+              <button nz-button class="login-form-button" [nzType]="'primary'" [nzSize]="'large'" style="height:40px;">{{hintContent}}</button>
+            </div>
+          </div>
+        </form>
+      </nz-content>
+      <nz-footer class="footer">苏ICP备18025915号 联系电话：0527-87024016</nz-footer>
+  </nz-layout>

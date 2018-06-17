@@ -26,10 +26,39 @@ export class BillsDetailComponent implements OnInit {
     this.getBillDetail(this.endpoint,this.params);
   }
 
+  reload () {
+    this.getBillDetail(this.endpoint,this.params);
+  }
+
+
   getBillDetail(endpoint,params):void {
     this.appService.get(endpoint,params).subscribe(data =>{
       if(data.json().suc){
-        this.details = data.json().data;
+        let datas = data.json().data;
+        for(let i =0;i<datas.length;i++){
+           if(datas[i].orderStatus =='NOT_PAY'){ //处理数据
+             datas[i].status = '待缴费'
+           }
+           if(datas[i].orderStatus =='PAYING'){
+              datas[i].status = '支付中'
+           }
+           if(datas[i].orderStatus =='PAY_SUCCESS'){
+              datas[i].status = '支付成功，待处理'
+           }
+           if(datas[i].orderStatus =='BILLING_SUCCESS'){
+              datas[i].status = '缴费成功'
+           }
+           if(datas[i].orderStatus =='TIMEOUT_CLOSED'){
+              datas[i].status = '逾期关闭账单'
+           }
+           if(datas[i].orderStatus =='ISV_CLOSED'){
+              datas[i].status = '账单关闭'
+           }
+          if(datas[i].orderStatus =='UNKNOWN'){
+            datas[i].status = '暂未查到'
+          }
+        }
+        this.details = datas
       }else{
 
       }

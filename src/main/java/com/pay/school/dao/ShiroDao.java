@@ -10,4 +10,6 @@ public interface ShiroDao {
     String getShiroAppAuthToken(String phone);
 
     String getShiroSchoolNo(String phone);
+
+    String getShiroSchoolPId(String schoolNo);
 }

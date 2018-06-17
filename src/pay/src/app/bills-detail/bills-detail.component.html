@@ -1,33 +1,33 @@
-<div class="detailTitle"><i class="anticon anticon-file-text"></i>账单详情</div>
+<div class="detailTitle"><i class="anticon anticon-file-text"></i>账单详情
+  <button nz-button [nzType]="'primary'" style="float:right;" (click)='reload()'>
+      <i class="anticon anticon-reload" style="color:#fff;"></i><span>刷新账单状态</span>
+  </button>
+</div>
 <nz-table #nzTable [nzDataSource]="details" [nzPageSize]="10">
   <thead nz-thead>
   <tr>
     <th nz-th><span>账单名称</span></th>
-    <th nz-th><span>学号</span></th>
-    <th nz-th><span>身份证</span></th>
     <th nz-th><span>姓名</span></th>
     <th nz-th><span>班级</span></th>
     <th nz-th><span>系统账单号</span></th>
     <th nz-th><span>支付宝账单号</span></th>
     <th nz-th><span>金额</span></th>
-
+    <th nz-th><span>账单状态</span></th>
   </tr>
   </thead>
   <tbody nz-tbody>
   <tr nz-tbody-tr *ngFor="let data of nzTable.data">
     <td nz-td>{{data.chargeBillTitle}}</td>
-    <td nz-td>{{data.studentCode}}</td>
-    <td nz-td>{{data.studentIdentify}}</td>
     <td nz-td>{{data.childName}}</td>
     <td nz-td>{{data.classIn}}</td>
     <td nz-td>{{data.outTradeNo}}</td>
     <td nz-td>{{data.orderNo}}</td>
     <td nz-td>{{data.amount}}</td>
-
+    <th nz-th>{{data.status}}</th>
 
   </tr>
   </tbody>
 </nz-table>
-<button nz-button [nzType]="'primary'"   (click)='goback()'>
+<button nz-button [nzType]="'primary'"   (click)='goback()' style="margin-top:20px;float:right;margin-right:20px;">
     返回
 </button>

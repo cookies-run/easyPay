@@ -18,4 +18,11 @@
         WHERE phone = #{phone}
     </select>
 
+    <select id="getShiroSchoolPId" resultType="java.lang.String" parameterType="java.lang.String">
+        SELECT
+        school_pid
+        FROM school_info
+        WHERE school_no = #{schoolNo}
+    </select>
+
 </mapper>

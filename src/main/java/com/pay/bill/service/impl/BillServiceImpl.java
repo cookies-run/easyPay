@@ -38,7 +38,7 @@ public class BillServiceImpl implements BillService {
             request.setBizContent("{" +
                     "\"trade_no\":\""+bean.getOrderNo()+"\"," +
                     "\"out_trade_no\":\""+bean.getOutTradeNo()+"\"," +
-                    "\"status\":\"2\"" +
+                    "\"status\":\"1\"" +
 //                    "\"status\":\"2\"," +
 //                    "\"fund_change\":\"Y\"," +
 //                    "\"refund_amount\":200.12," +
