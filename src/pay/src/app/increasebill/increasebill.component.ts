@@ -39,6 +39,7 @@ export class IncreasebillComponent implements OnInit {
         if(event.body.suc){
           this.uploading = false;
           this.msg.success(event.body.msg);
+
         }else{
           this.uploading = false;
           this.msg.error(event.body.msg);

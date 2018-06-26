@@ -91,7 +91,7 @@ export class SchoolInfoComponent implements OnInit {
        return;
      }else {
        //保存学校信息
-      this.endpoint = "/school/addSchoolInfoAndGetSchoolNo?";
+      this.endpoint = "school/addSchoolInfoAndGetSchoolNo?";
       this.addSchoolInfo(this.endpoint,this.params);
      }
     }
@@ -115,7 +115,7 @@ export class SchoolInfoComponent implements OnInit {
    }
 
  getSchoolInfo() {
-   this.appService.get("/school/getSchoolInfo").subscribe(data => {
+   this.appService.get("school/getSchoolInfo").subscribe(data => {
      var res = data.json().data;
      if(data.json().suc){ // 赋值初始值
        this.editable = true;

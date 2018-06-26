@@ -1,6 +1,6 @@
 <div class="schoolInfoTitle">
     <nz-upload  [nzFileType]="'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet,application/vnd.ms-excel'" [nzShowUploadList]="false"
-    [nzBeforeUpload]="beforeUpload">
+    [nzBeforeUpload]="beforeUpload" [nzMultiple]="'true'">
      <button nz-button [nzType]="'primary'">
        <i class="anticon anticon-upload"></i><span>上传账单</span>
      </button>

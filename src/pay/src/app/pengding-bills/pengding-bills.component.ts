@@ -13,8 +13,9 @@ export class PengdingBillsComponent implements OnInit {
   public params:any = {
     phone :''
   }
+  role:string;
+  ChildAccount:boolean;
   public endpoint:string = '';
-
   constructor(private appService:AppService,private router:Router,private msg: NzMessageService) { }
 
   getUnSendBill(endpoint,params):void {
@@ -48,9 +49,35 @@ export class PengdingBillsComponent implements OnInit {
 
   }
 
+
+ cancel = function () {
+    this.msg.info('取消删除账单')
+  };
+
+  // 删除
+  confirm = (data) => {
+      this.appService.get('/billDelete',{
+        billId:data.id
+      }).subscribe(res =>{
+      if(res.json().suc){
+        this.msg.success(res.json().msg);
+        this.getUnSendBill(this.endpoint, this.params)
+      }else{
+        this.msg.error(res.json().msg);
+      }
+    })
+  };
+
   ngOnInit() {
-    this.params.phone = sessionStorage.getItem('phone');
+   let role = sessionStorage.getItem('role');
+   this.params.phone = sessionStorage.getItem('phone');
     this.endpoint = 'bill/getListBill?';
+    if(role=='user'){
+      this.ChildAccount = false;
+    }
+    if(role == 'childUser'){
+      this.ChildAccount = true;
+    }
     this.getUnSendBill(this.endpoint, this.params);
   }
 

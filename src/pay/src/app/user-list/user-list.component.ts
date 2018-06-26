@@ -10,7 +10,7 @@ import { NzMessageService } from 'ng-zorro-antd';
 })
 export class UserListComponent implements OnInit {
   data = [];
-  endpoint:string = '/login/getUserList?';
+  endpoint:string = 'login/getUserList?';
   params:string= '';
   constructor(private appService:AppService,private router:Router,private msg: NzMessageService) { }
 
@@ -22,7 +22,7 @@ export class UserListComponent implements OnInit {
      let params={
        phone : data.phone
      }
-     this.appService.get('/login/deleteUser?',params).subscribe(data =>{
+     this.appService.get('login/deleteUser?',params).subscribe(data =>{
        if(data.json().suc){
          this.msg.success(data.json().msg);
          this.getUserList();

@@ -26,7 +26,6 @@ export class AppService {
       options.search = !options.search && p || options.search;
 
     }
-       console.log(options);
      return this.http.get(`${this.Url}${endpoint}`,options);
 
   }
