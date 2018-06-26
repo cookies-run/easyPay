@@ -1,6 +1,8 @@
 package com.pay.school.controller;
 
+import com.github.pagehelper.PageInfo;
 import com.pay.core.entity.JsonResult;
+import com.pay.school.entity.StudentBill;
 import com.pay.school.service.SchoolService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -28,11 +30,10 @@ public class ListBill {
 
     @RequestMapping(value = "/getStudentBill")
     @ResponseBody
-    public JsonResult getStudentBill(Integer id){
-
-        return schoolService.getStudentBill(id);
-
+    public JsonResult getStudentBill(Integer id,Integer pageNo,Integer pageSize){
+        PageInfo<StudentBill> real = schoolService.getStudentBill(id,pageNo,pageSize);
+        JsonResult jsonResult = new JsonResult(real,"查询成功",true);
+        return jsonResult;
     }
-
 
 }

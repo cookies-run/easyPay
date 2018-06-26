@@ -43,11 +43,8 @@ public class AuthorizeController {
     //获取授权回调的值app_auth_code换取app_auth_token（应用授权令牌）
     @RequestMapping("/getAuthToken")
     @ResponseBody
-    public JsonResult returnAuthCode(@RequestParam("app_auth_code") String app_auth_code){
+    public JsonResult returnAuthCode(@RequestParam("app_auth_code") String app_auth_code,@RequestParam("phone") String phone){
         JsonResult jsonResult = null;
-        //获取当前的用户id
-        User user = getShiroUser();
-        String phone = user.getPhone();
         //获取用户对应的app_auth_code，使用一次后失效，一天（从生成app_auth_code开始的24小时）未被使用自动过期
         AlipayClient alipayClient = PrivateKeySignature.getClient();
         AlipayOpenAuthTokenAppRequest request = new AlipayOpenAuthTokenAppRequest();
@@ -60,7 +57,7 @@ public class AuthorizeController {
 
             if(response.isSuccess()){
                 HashMap<String,String> map = new HashMap<>();
-                map.put(user.getPhone(),response.getAppAuthToken());
+                map.put(phone,response.getAppAuthToken());
                 //保存当前用户response.getAppAuthToken()
                 int i = loginService.addAliAuthToken(phone,response.getAppAuthToken());
 

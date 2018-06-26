@@ -8,4 +8,6 @@ import com.pay.core.entity.JsonResult;
 public interface BillService {
 
     JsonResult closeBill(Integer id);
+
+    boolean saveBillTradeNo(String trade_no,String out_trade_no,String trade_status);
 }

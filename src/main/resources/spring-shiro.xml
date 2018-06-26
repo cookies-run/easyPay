@@ -18,6 +18,7 @@
         <property name="filterChainDefinitions">
             <value>
                 /index=anon
+                /notify/payNotify=anon
 
 
             </value>

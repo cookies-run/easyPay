@@ -1,5 +1,6 @@
 package com.pay.school.service;
 
+import com.github.pagehelper.PageInfo;
 import com.pay.core.entity.JsonResult;
 import com.pay.school.entity.Bill;
 import com.pay.school.entity.SchoolInfo;
@@ -22,7 +23,7 @@ public interface SchoolService {
 
     JsonResult sendBill(Integer id);
 
-    JsonResult getStudentBill(Integer id);
+    PageInfo<StudentBill> getStudentBill(Integer id,Integer pageNo,Integer pageSize);
 
     JsonResult getSchoolInfo(User user);
 }

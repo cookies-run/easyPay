@@ -23,7 +23,7 @@ public interface SchoolDao {
 
     List<Bill> getListBill(String phone);
 
-    List<StudentBill> getStudentBillById(Integer id);
+    List<StudentBill> getStudentBillById(@Param("id") Integer id);
 
     int updateBillById(@Param("id")Integer id, @Param("orderNo")String orderNo);
 

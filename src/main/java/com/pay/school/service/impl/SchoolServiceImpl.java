@@ -8,6 +8,8 @@ import com.alipay.api.request.AlipayEcoEduKtSchoolinfoModifyRequest;
 import com.alipay.api.response.AlipayEcoEduKtBillingQueryResponse;
 import com.alipay.api.response.AlipayEcoEduKtBillingSendResponse;
 import com.alipay.api.response.AlipayEcoEduKtSchoolinfoModifyResponse;
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
 import com.pay.alipay.utils.PrivateKeySignature;
 
 import com.pay.core.entity.JsonResult;
@@ -219,14 +221,19 @@ public class SchoolServiceImpl implements SchoolService {
     }
 
     @Override
-    public JsonResult getStudentBill(Integer id) {
-        JsonResult jsonResult = null;
+    public PageInfo<StudentBill> getStudentBill(Integer id,Integer pageNo,Integer pageSize) {
+        pageNo = pageNo == null?1:pageNo;
+        pageSize = pageSize ==null?10:pageSize;
+        PageHelper.startPage(pageNo,pageSize);
         List<StudentBill> studentBills = schoolDao.getStudentBillById(id);
+        //用PageInfo对结果进行包装
+        PageInfo<StudentBill> realStudentBills = new PageInfo<StudentBill>(studentBills);
+
         AlipayClient alipayClient = PrivateKeySignature.getClient();
         User user = getShiroUser();
         String schoolNo = shiroDao.getShiroSchoolNo(user.getPhone());
         String schoolPId = shiroDao.getShiroSchoolPId(schoolNo);
-        for(StudentBill bean: studentBills){
+        for(StudentBill bean: realStudentBills.getList()){
             //循环查询账单状态
             AlipayEcoEduKtBillingQueryRequest request = new AlipayEcoEduKtBillingQueryRequest();
             request.setBizContent("{" +
@@ -245,12 +252,12 @@ public class SchoolServiceImpl implements SchoolService {
                 e.printStackTrace();
             }
         }
-        if(null!=studentBills&&studentBills.size()>0){
-            jsonResult = new JsonResult(studentBills,"查询成功",true);
-        }else{
-            jsonResult = new JsonResult(null,"查询不到未处理的账单，请联系管理员",false);
-        }
-        return jsonResult;
+//        if(null!=studentBills&&studentBills.size()>0){
+//            jsonResult = new JsonResult(studentBills,"查询成功",true);
+//        }else{
+//            jsonResult = new JsonResult(null,"查询不到未处理的账单，请联系管理员",false);
+//        }
+        return realStudentBills;
     }
 
     /**
