@@ -22,7 +22,7 @@ export class CheckPowerComponent implements OnInit {
 
   public ali_url:string = "";
   private phone:string = "";
-  public endpoint:string = 'authorize/lunchAuthorize?';
+  public endpoint:string = '/authorize/lunchAuthorize?';
 
   constructor(private appService:AppService,private _message: NzMessageService,private router:Router) {
     this.params.phone = this.phone;

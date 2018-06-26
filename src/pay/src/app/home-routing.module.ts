@@ -20,7 +20,7 @@ const homeRoutes: Routes = [
     children: [
       {path: 'checkPower', component: CheckPowerComponent},
       {path: 'addbill', component: IncreasebillComponent},
-      {path: 'studInfo', component: StudentinfoComponent},
+      {path: 'sonAccount', component: StudentinfoComponent},
       {path: 'hisbill', component: HistorybillComponent},
       {path: 'aliback', component: AliBackComponent},
       {path: 'SchoolInfo', component: SchoolInfoComponent},

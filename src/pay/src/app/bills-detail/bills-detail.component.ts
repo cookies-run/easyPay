@@ -11,18 +11,30 @@ import { Router, NavigationEnd,ActivatedRoute} from '@angular/router';
 export class BillsDetailComponent implements OnInit {
   details = [];
    params:any = {
-    id :''
+    id :'',
+    pageNo:'',
+    pageSize:''
   }
+  _current :number =1;
+  _pageSize:number =10;
+
+  _total:number;
+  _loading = false;
+
+
   public endpoint:string = 'bill/getStudentBill?';
-  constructor(private appService:AppService,private router:Router,private activatedRoute: ActivatedRoute) { }
+  constructor(private appService:AppService,private router:Router,private activatedRoute: ActivatedRoute) {}
 
   ngOnInit() {
     // 上个页面传过来的id
     this.activatedRoute.queryParams.subscribe(queryParams => {
       this.params.id = queryParams['billsinfo']
     });
-
+    //首次获取数据
+    this.params.pageNo = this._current
+    this.params.pageSize = this._pageSize
     //查询列表
+    this._loading = true;
     this.getBillDetail(this.endpoint,this.params);
   }
 
@@ -33,8 +45,11 @@ export class BillsDetailComponent implements OnInit {
 
   getBillDetail(endpoint,params):void {
     this.appService.get(endpoint,params).subscribe(data =>{
+      this._loading = false;
       if(data.json().suc){
-        let datas = data.json().data;
+        console.log(data.json())
+          let datas = data.json().data.list;
+          this._total = data.json().data.total;
         for(let i =0;i<datas.length;i++){
            if(datas[i].orderStatus =='NOT_PAY'){ //处理数据
              datas[i].status = '待缴费'
@@ -67,4 +82,18 @@ export class BillsDetailComponent implements OnInit {
   goback() {
     this.router.navigate(['/home/PengdingBills']);
   }
+ // 切换当前页面的数据量
+   PageSizeResetData(size) {
+     this._loading = true;
+     this.params.pageNo = this._current;
+     this.params.pageSize = size;
+     this.getBillDetail(this.endpoint,this.params)
+   }
+   //切换页面
+ PageIndexResetData(page) {
+   this._loading = true;
+   this.params.pageNo = page;
+   this.params.pageSize = this._pageSize;
+   this.getBillDetail(this.endpoint,this.params)
+ }
 }

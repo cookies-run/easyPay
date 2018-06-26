@@ -33,6 +33,9 @@ export class LoginComponent {
         this.appService.get(endpoint,params).subscribe(data => {
           var res = data.json().data;
           if(data.json().suc){
+            if(res.role){
+              sessionStorage.setItem('role',res.role);
+            }
             if(res.phone!=null){
               sessionStorage.setItem('phone', res.phone);
             }
@@ -43,7 +46,7 @@ export class LoginComponent {
               sessionStorage.setItem('schoolNo', res.schoolNo);
             }
             if(res.phone !='admin'){
-              this.router.navigate(['/home/checkPower']);
+              this.router.navigate(['/home']);
             }else {
               this.router.navigate(['/home/UserList']);
             }

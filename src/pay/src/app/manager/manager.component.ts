@@ -19,7 +19,7 @@ import {
 })
 export class ManagerComponent implements OnInit {
   validateForm: FormGroup;
-  endpoint='/login/register?';
+  endpoint='login/register?';
   params:any = {
     phone:'',
     password:''

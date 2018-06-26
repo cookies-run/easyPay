@@ -3,7 +3,14 @@
       <i class="anticon anticon-reload" style="color:#fff;"></i><span>刷新账单状态</span>
   </button>
 </div>
-<nz-table #nzTable [nzDataSource]="details" [nzPageSize]="10">
+<nz-table #nzTable [nzAjaxData]="details"
+      nzShowSizeChanger
+      [nzTotal]="_total"
+      [nzLoading]="_loading"
+      [(nzPageIndex)]="_current"
+      (nzPageIndexChange)="PageIndexResetData($event)"
+      [(nzPageSize)]="_pageSize"
+      (nzPageSizeChange)="PageSizeResetData($event)">
   <thead nz-thead>
   <tr>
     <th nz-th><span>账单名称</span></th>

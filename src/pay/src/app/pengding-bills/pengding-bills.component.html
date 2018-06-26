@@ -20,8 +20,13 @@
     <td nz-td>
           <span>
             <a (click)='checkDetail(data)'>查看</a>
-            <span nz-table-divider></span>
-            <a *ngIf="data.state==0" (click)='submit(data)'>发送</a>
+            <span nz-table-divider *ngIf="data.state==0 && !ChildAccount"></span>
+            <a *ngIf="data.state==0 && !ChildAccount" (click)='submit(data)'>发送</a>
+             <span nz-table-divider *ngIf="data.state==0"></span>
+            <nz-popconfirm [nzTitle]="'确定要删除这个账单吗？'" (nzOnConfirm)="confirm(data)" (nzOnCancel)="cancel()" [nzPlacement]="'bottom'">
+             <a *ngIf="data.state==0"  nz-popconfirm>删除</a>
+           </nz-popconfirm>
+
           </span>
     </td>
   </tr>
