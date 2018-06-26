@@ -51,27 +51,12 @@ export class CheckPowerComponent implements OnInit {
  }
 
  done() {
-   this._message.success('done');
+   this._message.success('流程结束！');
  }
 
  changeContent() {
-   switch (this.current) {
-     case 0: {
-       this.index = 'First-content';
-       break;
-     }
-     case 1: {
-       this.index = 'Second-content';
-       break;
-     }
-     case 2: {
-       this.index = 'third-content';
-       break;
-     }
-     default: {
-       this.index = 'error';
-     }
-   }
+   this.token = sessionStorage.getItem('appauthtoken')?false:true
+   this.schoolNo = sessionStorage.getItem('schoolNo')?false:true
  }
 
  power() {
@@ -82,13 +67,13 @@ export class CheckPowerComponent implements OnInit {
     this.lunchAuthorize();
     if(sessionStorage.getItem('appauthtoken')){
       this.token = false;
-      this.current = 1;
+      this.current = 2;
       if(sessionStorage.getItem('schoolNo')){
         this.schoolNo = false;
-        this.current = 2;
+        this.current = 3;
       }else {
           this.schoolNo = true;
-          this.current = 1;
+          this.current = 2;
       }
     }else {
         this.token = true;
