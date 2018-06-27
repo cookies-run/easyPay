@@ -2,7 +2,7 @@
     <nz-upload  [nzFileType]="'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet,application/vnd.ms-excel'" [nzShowUploadList]="false"
     [nzBeforeUpload]="beforeUpload" [nzMultiple]="'true'">
      <button nz-button [nzType]="'primary'">
-       <i class="anticon anticon-upload"></i><span>上传账单</span>
+       <i class="anticon anticon-upload"></i><span>选择账单</span>
      </button>
    </nz-upload>
    <!-- <button nz-button [nzType]="'primary'" style="margin-left:20px;"  (click)='edit()'>
@@ -38,5 +38,5 @@
     </nz-table>
   </div>
   <button nz-button [nzType]="'primary'" [nzLoading]="uploading" (click)="handleUpload()" [disabled]="fileList.length == 0" style="margin-top: 16px;float:right;">
-    {{ uploading ? '上传中' : '发送账单' }}
+    {{ uploading ? '上传中' : '上传账单' }}
   </button>
