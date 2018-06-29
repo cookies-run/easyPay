@@ -63,7 +63,7 @@ java.io.tmpdir - Default temp file path -->
                                      First In First Out (specified as FIFO) and Less Frequently Used
                                      (specified as LFU)
     -->
-		
+		      
     <defaultCache
             maxElementsInMemory="10000"
             eternal="false"
