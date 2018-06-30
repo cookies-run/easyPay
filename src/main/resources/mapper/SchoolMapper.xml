@@ -81,7 +81,7 @@
     </insert>
 
     <select id="getListBill" resultType="com.pay.school.entity.Bill" parameterType="com.pay.school.entity.Bill">
-        SELECT * FROM bill WHERE phone = #{phone}
+        SELECT * FROM bill WHERE phone = #{phone} and state!=2
     </select>
 
     <select id="getStudentBillById" resultType="com.pay.school.entity.StudentBill" parameterType="java.lang.Integer">
