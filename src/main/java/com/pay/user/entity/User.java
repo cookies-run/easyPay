@@ -7,7 +7,10 @@ public class User {
     private String phone;
 
     private String password;
-
+    //新密码
+    private String newPassword;
+    //确认密码
+    private String surePassword;
     /**
      * 用户角色
      */
@@ -23,13 +26,14 @@ public class User {
      */
     @Column(name = "school_no")
     private String schoolNo;
-
     /**
      * 商户授权令牌
      */
     @Column(name = "appAuthToken")
     private String appauthtoken;
-
+    //父账号
+    @Column(name = "parent_account")
+    private String parentAccount;
     public User(String phone, String password, String role, String email, String schoolNo, String appauthtoken) {
         this.phone = phone;
         this.password = password;
@@ -141,5 +145,23 @@ public class User {
      */
     public void setAppauthtoken(String appauthtoken) {
         this.appauthtoken = appauthtoken == null ? null : appauthtoken.trim();
+    }
+    public void setNewPassword(String newPassword){
+        this.newPassword = newPassword;
+    }
+    public String getNewPassword(){
+        return newPassword;
+    }
+    public void setSurePassword(String surePassword){
+        this.surePassword = surePassword;
+    }
+    public String getSurePassword(){
+        return surePassword;
+    }
+    public String getParentAccount(){
+        return parentAccount;
+    }
+    public void setParentAccount(String parentAccount){
+        this.parentAccount = parentAccount;
     }
 }
