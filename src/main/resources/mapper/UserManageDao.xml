@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!-- 设置为IUserDao接口方法提供sql语句配置 -->
+<mapper namespace="com.pay.user.dao.UserManageDao">
+    <select id="isExistUser" resultType="Integer">
+        SELECT count(*) FROM user WHERE phone=#{phone} AND password=#{oldPwd}
+    </select>
+    <update id="updateOldPwd">
+        update USER SET password=#{newPwd} WHERE phone=#{phone}
+    </update>
+    <insert id="addChildAccount" parameterType="com.pay.user.entity.User">
+        INSERT INTO USER (phone,password,role,parent_account) VALUES (#{phone},#{password},'childUser',#{parentAccount})
+    </insert>
+</mapper>
