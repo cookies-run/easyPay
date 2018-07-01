@@ -42,6 +42,9 @@ export class BillsDetailComponent implements OnInit {
     this.getBillDetail(this.endpoint,this.params);
   }
 
+ download () {
+    window.location.href= `billExport?&billId=${this.params.id}`
+ }
 
   getBillDetail(endpoint,params):void {
     this.appService.get(endpoint,params).subscribe(data =>{
