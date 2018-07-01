@@ -47,7 +47,6 @@ export class BillsDetailComponent implements OnInit {
     this.appService.get(endpoint,params).subscribe(data =>{
       this._loading = false;
       if(data.json().suc){
-        console.log(data.json())
           let datas = data.json().data.list;
           this._total = data.json().data.total;
         for(let i =0;i<datas.length;i++){

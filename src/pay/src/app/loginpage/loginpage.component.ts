@@ -29,33 +29,32 @@ export class LoginComponent {
           this.loginService(this.endpoint,this.validateForm.value);
         }
     }
-     loginService(endpoint,params): void {
-        this.appService.get(endpoint,params).subscribe(data => {
-          var res = data.json().data;
-          if(data.json().suc){
-            if(res.role){
-              sessionStorage.setItem('role',res.role);
-            }
-            if(res.phone!=null){
-              sessionStorage.setItem('phone', res.phone);
-            }
-            if(res.appauthtoken!=null){
-              sessionStorage.setItem('appauthtoken', res.appauthtoken);
-            }
-            if(res.schoolNo!=null){
-              sessionStorage.setItem('schoolNo', res.schoolNo);
-            }
-            if(res.phone !='admin'){
-              this.router.navigate(['/home']);
-            }else {
-              this.router.navigate(['/home/UserList']);
-            }
 
-          }else{
-            this.hintContent = '登录失败,请重新尝试'
-          }
-          });
-     }
+  loginService(endpoint, params): void {
+    this.appService.get(endpoint, params).subscribe(data => {
+      var res = data.json().data;
+      if (data.json().suc) {
+        if (res.phone != null) {
+          sessionStorage.setItem('phone', res.phone);
+          localStorage.setItem('phone', res.phone);
+        }
+        if (res.appauthtoken != null) {
+          sessionStorage.setItem('appauthtoken', res.appauthtoken);
+        }
+        if (res.schoolNo != null) {
+          sessionStorage.setItem('schoolNo', res.schoolNo);
+        }
+        if (res.phone != 'admin') {
+          this.router.navigate(['/home/checkPower']);
+        } else {
+          this.router.navigate(['/home/UserList']);
+        }
+
+      } else {
+        this.hintContent = '登录失败,请重新尝试'
+      }
+    });
+  }
 
    ngOnInit(): void {
       sessionStorage.clear();

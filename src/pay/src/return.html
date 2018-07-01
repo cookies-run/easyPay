@@ -59,14 +59,16 @@
 </div>
 
 <script src="assets/js/jquery.js"></script>
-<script language="javascript"
->
+<script language="javascript">
+
+  var phone = localStorage.getItem("phone");
   function commitAuthCode() {
     $.ajax({
       type: "GET",
       url: "authorize/getAuthToken",
       data: {
-        app_auth_code: app_auth_code
+        app_auth_code: app_auth_code,
+        phone:phone
       },
       dataType: "text",
       success: function (data) {

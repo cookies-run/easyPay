@@ -7,6 +7,7 @@ import com.alipay.api.request.AlipayTradeCloseRequest;
 import com.alipay.api.response.AlipayEcoEduKtBillingModifyResponse;
 import com.alipay.api.response.AlipayTradeCloseResponse;
 import com.pay.alipay.utils.PrivateKeySignature;
+import com.pay.bill.dao.BillDao;
 import com.pay.bill.service.BillService;
 import com.pay.core.entity.JsonResult;
 import com.pay.school.dao.SchoolDao;
@@ -24,6 +25,9 @@ public class BillServiceImpl implements BillService {
 
     @Autowired
     private SchoolDao schoolDao;
+
+    @Autowired
+    private BillDao billDao;
 
 
     @Override
@@ -66,5 +70,16 @@ public class BillServiceImpl implements BillService {
             }
         }
         return null;
+    }
+
+    public boolean saveBillTradeNo(String trade_no,String out_trade_no,String trade_status){
+        //保存真实trade_no和状态
+        int i = billDao.saveBillTradeNo(trade_no,out_trade_no,trade_status);
+        if(i>0){
+            return true;
+        }else{
+            return false;
+        }
+
     }
 }

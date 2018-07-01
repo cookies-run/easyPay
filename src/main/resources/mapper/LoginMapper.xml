@@ -12,10 +12,11 @@
             <arg column="email" javaType="java.lang.String" jdbcType="VARCHAR" />
             <arg column="school_no" javaType="java.lang.String" jdbcType="VARCHAR" />
             <arg column="appAuthToken" javaType="java.lang.String" jdbcType="VARCHAR" />
+            <arg column="parent_account" javaType="java.lang.String" jdbcType="VARCHAR" />
         </constructor>
     </resultMap>
     <sql id="Base_Column_List">
-        phone, password, role, email, school_no, appAuthToken
+        phone, password, role, email, school_no, appAuthToken,parent_account
     </sql>
 
     <select id="selectId" resultMap="BaseResultMap" parameterType="java.lang.String">
@@ -59,6 +60,12 @@
     <select id="getUserList"  resultType="com.pay.user.entity.User">
         SELECT * FROM USER
         WHERE role != "admin"
+        <if test="role=='user'">
+            AND parent_account = #{schoolAccount}
+        </if>
+        <if test="role=='admin'">
+            AND role!="childUser"
+        </if>
     </select>
 
     <delete id="deleteUser" parameterType="java.lang.String">

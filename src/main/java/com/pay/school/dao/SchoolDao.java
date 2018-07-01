@@ -21,7 +21,7 @@ public interface SchoolDao {
 
     int addBill(@Param("bill")Bill bill);
 
-    List<Bill> getListBill(String phone);
+    List<Bill> getListBill(@Param("phone") String phone,@Param("role") String role);
 
     List<StudentBill> getStudentBillById(Integer id);
 
