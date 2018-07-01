@@ -70,11 +70,11 @@
         </div>
         <div nz-form-item nz-row>
          <div nz-form-label nz-col [nzSm]="6" [nzXs]="24">
-           <label for="oldPassword" nz-form-item-required>代理商</label>
+           <label for="agentName" nz-form-item-required>代理商</label>
          </div>
          <div nz-form-control nz-col [nzSm]="14" [nzXs]="24" nzHasFeedback>
            <nz-input [nzSize]="'large'" formControlName="agentName"  [nzId]="'agentName'"></nz-input>
-           <div nz-form-explain *ngIf="getFormControl('agentName').dirty&&getFormControl('agentName').hasError('required')">请输入手机号!</div>
+           <div nz-form-explain *ngIf="getFormControl('agentName').dirty&&getFormControl('agentName').hasError('required')">请输入代理商名称!</div>
          </div>
        </div>
 
