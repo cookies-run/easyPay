@@ -72,26 +72,26 @@
     <insert id="addBill" useGeneratedKeys="true" keyProperty="bill.id" parameterType="com.pay.school.entity.Bill">
             INSERT INTO bill
             (
-            bill_name,import_time,phone
+            bill_name,import_time,phone,childUser
             )
             VALUES
             (
-            #{bill.billName},#{bill.importTime},#{bill.phone}
+            #{bill.billName},#{bill.importTime},#{bill.phone},#{bill.childUser}
             )
     </insert>
 
     <select id="getListBill" resultType="com.pay.school.entity.Bill" parameterType="com.pay.school.entity.Bill">
-        SELECT * FROM bill WHERE phone = #{phone} and state!=2
+        SELECT * FROM bill WHERE state!=2
+        <if test="role=='childUser'">
+            AND childUser = #{phone}
+        </if>
+        <if test="role=='user'">
+            AND phone = #{phone}
+        </if>
     </select>
 
     <select id="getStudentBillById" resultType="com.pay.school.entity.StudentBill" parameterType="java.lang.Integer">
-        SELECT * FROM
-        student_bill
-        WHERE 1=1
-        <if test="id!=null">
-            AND bill_id = #{id}
-        </if>
-        ORDER BY id
+        SELECT * FROM student_bill WHERE bill_id = #{id}
     </select>
 
     <update id="updateBillById" parameterType="java.lang.String">

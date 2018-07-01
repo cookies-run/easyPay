@@ -147,9 +147,12 @@ public class SchoolServiceImpl implements SchoolService {
     }
 
     @Override
-    public JsonResult getListBill(String phone) {
+    public JsonResult getListBill() {
         JsonResult jsonResult = null;
-        List<Bill> bills = schoolDao.getListBill(phone);
+        User user = getShiroUser();
+        String phone = user.getPhone();
+        String role = user.getRole();
+        List<Bill> bills = schoolDao.getListBill(phone,role);
         if(bills!=null){
             jsonResult = new JsonResult(bills,"查询成功",true);
         }else {
@@ -221,19 +224,18 @@ public class SchoolServiceImpl implements SchoolService {
     }
 
     @Override
-    public PageInfo<StudentBill> getStudentBill(Integer id,Integer pageNo,Integer pageSize) {
+    public PageInfo<StudentBill> getStudentBill(Integer id, Integer pageNo, Integer pageSize) {
         pageNo = pageNo == null?1:pageNo;
         pageSize = pageSize ==null?10:pageSize;
         PageHelper.startPage(pageNo,pageSize);
         List<StudentBill> studentBills = schoolDao.getStudentBillById(id);
         //用PageInfo对结果进行包装
         PageInfo<StudentBill> realStudentBills = new PageInfo<StudentBill>(studentBills);
-
         AlipayClient alipayClient = PrivateKeySignature.getClient();
         User user = getShiroUser();
         String schoolNo = shiroDao.getShiroSchoolNo(user.getPhone());
         String schoolPId = shiroDao.getShiroSchoolPId(schoolNo);
-        for(StudentBill bean: realStudentBills.getList()){
+        for(StudentBill bean: studentBills){
             //循环查询账单状态
             AlipayEcoEduKtBillingQueryRequest request = new AlipayEcoEduKtBillingQueryRequest();
             request.setBizContent("{" +

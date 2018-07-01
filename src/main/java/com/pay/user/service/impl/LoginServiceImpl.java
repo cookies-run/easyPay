@@ -9,6 +9,8 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 
+import static com.pay.common.shiro.ShiroUtils.getShiroUser;
+
 /**
  * Created by yu on 2018/3/24.
  */
@@ -57,7 +59,10 @@ public class LoginServiceImpl implements LoginService{
     @Override
     public JsonResult getUserList() {
         JsonResult jsonResult = null;
-        List<User> users = loginDao.getUserList();
+        User user = getShiroUser();
+        String role = user.getRole();
+        String schoolAccount = user.getPhone();
+        List<User> users = loginDao.getUserList(role,schoolAccount);
         if(users.size()>0){
             jsonResult = new JsonResult(users,"用户列表",true);
         }else{

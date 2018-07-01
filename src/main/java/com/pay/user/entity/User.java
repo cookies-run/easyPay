@@ -34,13 +34,14 @@ public class User {
     //父账号
     @Column(name = "parent_account")
     private String parentAccount;
-    public User(String phone, String password, String role, String email, String schoolNo, String appauthtoken) {
+    public User(String phone, String password, String role, String email, String schoolNo, String appauthtoken,String parentAccount) {
         this.phone = phone;
         this.password = password;
         this.role = role;
         this.email = email;
         this.schoolNo = schoolNo;
         this.appauthtoken = appauthtoken;
+        this.parentAccount = parentAccount;
     }
 
     public User() {

@@ -28,7 +28,7 @@ public class Bill {
      * 0-未发送，1-已发送
      */
     private Short state;
-
+    private String childUser;
     public Bill(Integer id, String billName, Date importTime, String phone, Short state) {
         this.id = id;
         this.billName = billName;
@@ -125,5 +125,11 @@ public class Bill {
      */
     public void setState(Short state) {
         this.state = state;
+    }
+    public void setChildUser(String childUser){
+        this.childUser = childUser;
+    }
+    public String getChildUser(){
+        return childUser;
     }
 }

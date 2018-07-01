@@ -22,18 +22,19 @@ public class ListBill {
 
     @RequestMapping(value = "/getListBill")
     @ResponseBody
-    public JsonResult getListBill(String phone){
+    public JsonResult getListBill(){
 
-        return schoolService.getListBill(phone);
+        return schoolService.getListBill();
 
     }
 
     @RequestMapping(value = "/getStudentBill")
     @ResponseBody
-    public JsonResult getStudentBill(Integer id,Integer pageNo,Integer pageSize){
+    public JsonResult getStudentBill(Integer id, Integer pageNo, Integer pageSize){
         PageInfo<StudentBill> real = schoolService.getStudentBill(id,pageNo,pageSize);
         JsonResult jsonResult = new JsonResult(real,"查询成功",true);
         return jsonResult;
     }
+
 
 }
