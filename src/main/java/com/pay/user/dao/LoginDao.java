@@ -13,13 +13,13 @@ import java.util.List;
 @Repository
 public interface LoginDao {
 
-    List<User> selectId(String phone);
+    List<User> selectId(@Param("phone") String phone);
 
     int addAliAuthToken(@Param("phone") String phone, @Param("appAuthToken") String appAuthToken);
 
     int register(@Param("user")User user);
 
-    List<User> getUserList();
+    List<User> getUserList(@Param("role") String role,@Param("schoolAccount") String schoolAccount);
 
     int deleteUser(String phone);
 

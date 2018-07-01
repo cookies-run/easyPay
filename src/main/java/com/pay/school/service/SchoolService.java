@@ -19,11 +19,11 @@ public interface SchoolService {
 
     JsonResult addStudentBill(Bill bill, List<StudentBill> studentBills);
 
-    JsonResult getListBill(String phone);
+    JsonResult getListBill();
 
     JsonResult sendBill(Integer id);
 
-    PageInfo<StudentBill> getStudentBill(Integer id,Integer pageNo,Integer pageSize);
+    PageInfo<StudentBill> getStudentBill(Integer id, Integer pageNo, Integer pageSize);
 
     JsonResult getSchoolInfo(User user);
 }
