@@ -4,6 +4,7 @@ import com.pay.common.utils.ExcelUtil;
 import com.pay.core.entity.JsonResult;
 import com.pay.school.dao.BillManageDao;
 import com.pay.school.dao.SchoolDao;
+import com.pay.school.entity.FileOper;
 import com.pay.school.entity.StudentBill;
 import com.pay.school.service.BillManageService;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
@@ -64,11 +65,13 @@ public class BillManageServiceImpl implements BillManageService {
             }
             //创建HSSFWorkbook
             HSSFWorkbook wb = ExcelUtil.getHSSFWorkbook(sheetName, title, content, null);
-            File file = new File("C:/studentExcel");
+            File file = new File("C:\\studentExcel");
             if(!file.isFile()){
                 file.mkdir();
             }
-            FileOutputStream out = new FileOutputStream(file+"/"+fileName);
+            String filePath = file.getPath()+"\\"+fileName;
+//            FileOutputStream out = new FileOutputStream(file+"/"+fileName);
+            FileOutputStream out = new FileOutputStream(filePath);
             wb.write(out);
             out.flush();
             try{
@@ -77,8 +80,13 @@ public class BillManageServiceImpl implements BillManageService {
             }catch (IOException e){
                 jsonResult.setMsg("导出账单详情异常！"+e);
             }
+            FileOper fileOper = new FileOper();
+            fileOper.setFileName(fileName);
+            fileOper.setFilePath(filePath);
             jsonResult.setMsg("导出成功！");
             jsonResult.setSuc(true);
+            jsonResult.setData(fileOper);
+
         }catch (Exception e){
             jsonResult.setMsg("导出账单详情异常！"+e);
         }
