@@ -64,7 +64,7 @@ public class BillManageServiceImpl implements BillManageService {
             }
             //创建HSSFWorkbook
             HSSFWorkbook wb = ExcelUtil.getHSSFWorkbook(sheetName, title, content, null);
-            File file = new File("D:/studentExcel");
+            File file = new File("C:/studentExcel");
             if(!file.isFile()){
                 file.mkdir();
             }
