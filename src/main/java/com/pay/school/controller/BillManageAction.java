@@ -21,5 +21,10 @@ public class BillManageAction {
         JsonResult jsonResult = billManageService.billDelete(billId);
         return jsonResult;
     }
+    @RequestMapping("billExport")
+    @ResponseBody
+    public JsonResult billExport(Integer billId){
+        return billManageService.billExport(billId);
+    }
 
 }

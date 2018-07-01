@@ -7,4 +7,5 @@ import com.pay.core.entity.JsonResult;
  */
 public interface BillManageService {
     JsonResult billDelete(Integer billId);
+    JsonResult billExport(Integer billId);
 }
