@@ -44,10 +44,14 @@ export class LoginComponent {
         if (res.schoolNo != null) {
           sessionStorage.setItem('schoolNo', res.schoolNo);
         }
-        if (res.phone != 'admin') {
-          this.router.navigate(['/home/checkPower']);
-        } else {
-          this.router.navigate(['/home/UserList']);
+
+        if(res.role){
+           sessionStorage.setItem('role',res.role);
+         if(res.role=='agentUser'|| res.role=='admin'){
+             this.router.navigate(['/home/UserList']);
+         }else {
+           this.router.navigate(['/home/checkPower']);
+         }
         }
 
       } else {
