@@ -1,5 +1,8 @@
 <div class="detailTitle"><i class="anticon anticon-file-text"></i>账单详情
-  <button nz-button [nzType]="'primary'" style="float:right;" (click)='reload()'>
+  <button nz-button [nzType]="'primary'" style="float:right;" (click)='download()'>
+      <i class="anticon anticon-printer" style="color:#fff;"></i><span>账单导出</span>
+  </button>
+  <button nz-button [nzType]="'primary'" style="float:right;  margin-right:15px;" (click)='reload()'>
       <i class="anticon anticon-reload" style="color:#fff;"></i><span>刷新账单状态</span>
   </button>
 </div>
