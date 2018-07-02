@@ -259,6 +259,9 @@
           <!-- 设置JDK版本 -->
           <source>1.8</source>
           <target>1.8</target>
+          <compilerArguments>
+            <extdirs>src/main/webapp/WEB-INF/lib/</extdirs>
+          </compilerArguments>
         </configuration>
       </plugin>
 
