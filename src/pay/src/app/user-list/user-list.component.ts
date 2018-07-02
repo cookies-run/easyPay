@@ -18,7 +18,7 @@ export class UserListComponent implements OnInit {
   currentModal;
   validateForm: FormGroup;
   isConfirmLoading = false;
-  
+
   constructor(private appService:AppService,private router:Router,private msg: NzMessageService,private modalService: NzModalService,private fb: FormBuilder) { }
 
   addSchool() {
@@ -43,7 +43,19 @@ export class UserListComponent implements OnInit {
      this.appService.get(this.endpoint,this.params).subscribe(data =>{
        if(data.json().suc){
          if(data.json().data != null){
-           this.data = data.json().data;
+           let datas = data.json().data;
+             datas.forEach((item:any) =>{
+               if(item.role=='user'){
+                 item.role='学校账户'
+               }
+               if(item.role=='admin'){
+                   item.role='管理员'
+               }
+               if(item.role=='agentUser'){
+                   item.role='代理商'
+               }
+             })
+            this.data = datas
          }else {
            this.data = [];
          }

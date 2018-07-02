@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {AppService} from '../app.service';
 import { Router, NavigationEnd,ActivatedRoute} from '@angular/router';
-
+import { NzMessageService } from 'ng-zorro-antd';
 
 @Component({
   selector: 'app-bills-detail',
@@ -23,7 +23,7 @@ export class BillsDetailComponent implements OnInit {
 
 
   public endpoint:string = 'bill/getStudentBill?';
-  constructor(private appService:AppService,private router:Router,private activatedRoute: ActivatedRoute) {}
+  constructor(private appService:AppService,private router:Router,private activatedRoute: ActivatedRoute,private msg: NzMessageService) {}
 
   ngOnInit() {
     // 上个页面传过来的id
@@ -43,7 +43,17 @@ export class BillsDetailComponent implements OnInit {
   }
 
  download () {
-    window.location.href= `billExport?&billId=${this.params.id}`
+       let downloadParams = {
+          billId : this.params.id
+       }
+      this.appService.get('billExport',downloadParams).subscribe(data =>{
+              if(data.json().suc){
+                let datas = data.json().data.filePath;
+                window.location.href = `/${datas}`
+              }else {
+                  this.msg.error(data.json().msg);
+              }
+      })
  }
 
   getBillDetail(endpoint,params):void {
