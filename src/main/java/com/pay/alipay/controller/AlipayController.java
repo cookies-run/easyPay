@@ -29,7 +29,7 @@ public class AlipayController {
     @Autowired
     private BillService billService;
 
-    @RequestMapping(value = "/getPayNotify")
+    @RequestMapping(value = "/payNotify")
     @ResponseBody
     public String getPayNotify(HttpServletRequest request)throws Exception{
         Map<String,String> params = new HashMap<String,String>();
@@ -59,7 +59,7 @@ public class AlipayController {
 
 
         //切记alipaypublickey是支付宝的公钥，请去open.alipay.com对应应用下查看。
-        boolean flag = AlipaySignature.rsaCheckV1(params, AlipayConfig.alipay_public_key,"UTF-8","RSA2");
+        boolean flag = AlipaySignature.rsaCheckV1(params, AlipayConfig.alipay_public_key,"GBK");
         if(flag){
             if(trade_status.equals("TRADE_FINISHED")||trade_status.equals("TRADE_SUCCESS")){
                 //1:缴费成功，2:关闭账单，3、退费
@@ -90,29 +90,6 @@ public class AlipayController {
             return "response fail" ;
         }
 
-//        if (notify_id!=""&&notify_id!=null){
-////            if (AlipayNotify.verifyResponse(notify_id).equals("true")){
-//                if(AlipayNotify.getSignVeryfy(params,sign)){
-//                    if(trade_status.equals("TRADE_FINISHED")||trade_status.equals("TRADE_SUCCESS")){
-//                        //业务
-//                        //更新单据为已完成
-//                       boolean flag = billService.saveBillTradeNo(trade_no, out_trade_no, trade_status);
-//                       if(flag){
-//                           return "success";
-//                       }else{
-//                           return "operate error";
-//                       }
-//                    }
-//                    return "success";
-//                }else{
-//                    return "sign fail" ;
-//                }
-////            }else {
-////                return "response fail" ;
-////            }
-//        }else {
-//            return "no notify message";
-//        }
     }
 
     @RequestMapping(value = "/getPay")
