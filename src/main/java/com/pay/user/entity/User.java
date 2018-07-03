@@ -34,6 +34,13 @@ public class User {
     //父账号
     @Column(name = "parent_account")
     private String parentAccount;
+    //代理商名称
+    @Column(name = "agent_name")
+    private String agentName;
+    //学校名称
+    @Column(name = "school_name")
+    private String schoolName;
+
     public User(String phone, String password, String role, String email, String schoolNo, String appauthtoken,String parentAccount) {
         this.phone = phone;
         this.password = password;
@@ -164,5 +171,21 @@ public class User {
     }
     public void setParentAccount(String parentAccount){
         this.parentAccount = parentAccount;
+    }
+
+    public String getAgentName() {
+        return agentName;
+    }
+
+    public void setAgentName(String agentName) {
+        this.agentName = agentName;
+    }
+
+    public String getSchoolName() {
+        return schoolName;
+    }
+
+    public void setSchoolName(String schoolName) {
+        this.schoolName = schoolName;
     }
 }

@@ -4,13 +4,13 @@ import com.pay.common.utils.ExcelUtil;
 import com.pay.core.entity.JsonResult;
 import com.pay.school.dao.BillManageDao;
 import com.pay.school.dao.SchoolDao;
+import com.pay.school.entity.FileOper;
 import com.pay.school.entity.StudentBill;
 import com.pay.school.service.BillManageService;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
@@ -43,7 +43,7 @@ public class BillManageServiceImpl implements BillManageService {
     }
     public JsonResult billExport(Integer billId){
         JsonResult jsonResult = new JsonResult(null,"账单导出失败！",false);
-        SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+        SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd-HH-mm-ss");
         try{
             //根据账单id获取账单详情列表
             List<StudentBill> studentBills = schoolDao.getStudentBillById(billId);
@@ -53,7 +53,7 @@ public class BillManageServiceImpl implements BillManageService {
             //excel标题
             String[] title = {"姓名","金额","账单状态"};
             //excel文件名
-            String fileName = studentBills.get(0).getChargeBillTitle()+format.format(new Date())+".xls";
+            String fileName = format.format(new Date())+" "+studentBills.get(0).getChargeBillTitle()+".xls";
             //sheet名
             String sheetName = "账单明细";
             String content[][] = new String[studentBills.size()][2];
@@ -64,11 +64,10 @@ public class BillManageServiceImpl implements BillManageService {
             }
             //创建HSSFWorkbook
             HSSFWorkbook wb = ExcelUtil.getHSSFWorkbook(sheetName, title, content, null);
-            File file = new File("C:/studentExcel");
-            if(!file.isFile()){
-                file.mkdir();
-            }
-            FileOutputStream out = new FileOutputStream(file+"/"+fileName);
+            String rootPath = System.getProperty("java.io.tmpdir").replace("\\","/");
+            String filePath = rootPath+"/"+fileName;
+            filePath = filePath.replace("\\","/");
+            FileOutputStream out = new FileOutputStream(filePath);
             wb.write(out);
             out.flush();
             try{
@@ -77,10 +76,16 @@ public class BillManageServiceImpl implements BillManageService {
             }catch (IOException e){
                 jsonResult.setMsg("导出账单详情异常！"+e);
             }
+            FileOper fileOper = new FileOper();
+            fileOper.setFileName(fileName);
+            fileOper.setFilePath(filePath);
             jsonResult.setMsg("导出成功！");
             jsonResult.setSuc(true);
+            jsonResult.setData(fileOper);
+
         }catch (Exception e){
             jsonResult.setMsg("导出账单详情异常！"+e);
+            e.printStackTrace();
         }
         return jsonResult;
     }

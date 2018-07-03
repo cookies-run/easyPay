@@ -1,6 +1,5 @@
 package com.pay.user.dao;
 
-import com.pay.core.entity.JsonResult;
 import com.pay.user.entity.User;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
@@ -19,7 +18,7 @@ public interface LoginDao {
 
     int register(@Param("user")User user);
 
-    List<User> getUserList(@Param("role") String role,@Param("schoolAccount") String schoolAccount);
+    List<User> getUserList(@Param("role") String role,@Param("parentAccount") String parentAccount);
 
     int deleteUser(String phone);
 

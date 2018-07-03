@@ -49,19 +49,19 @@
     <insert id="register" useGeneratedKeys="true" keyProperty="user.phone" parameterType="com.pay.user.entity.User">
         INSERT INTO user
         (
-        phone,password,role
+        phone,password,role,parent_account,school_name
         )
         VALUES
         (
-        #{user.phone},#{user.password},"user"
+        #{user.phone},#{user.password},"user",#{user.parentAccount},#{user.schoolName}
         )
     </insert>
 
     <select id="getUserList"  resultType="com.pay.user.entity.User">
         SELECT * FROM USER
         WHERE role != "admin"
-        <if test="role=='user'">
-            AND parent_account = #{schoolAccount}
+        <if test="role=='user' or role=='agentUser'">
+            AND parent_account = #{parentAccount}
         </if>
         <if test="role=='admin'">
             AND role!="childUser"

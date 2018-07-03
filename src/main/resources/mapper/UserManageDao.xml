@@ -12,4 +12,7 @@
     <insert id="addChildAccount" parameterType="com.pay.user.entity.User">
         INSERT INTO USER (phone,password,role,parent_account) VALUES (#{phone},#{password},'childUser',#{parentAccount})
     </insert>
+    <insert id="addAgentUser" parameterType="com.pay.user.entity.User">
+        INSERT INTO USER (phone,password,role,parent_account,agent_name) VALUES (#{phone},#{password},'agentUser','admin',#{agentName})
+    </insert>
 </mapper>

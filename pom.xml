@@ -239,6 +239,12 @@
       <artifactId>poi-ooxml</artifactId>
       <version>3.8</version>
     </dependency>
+    <!-- mybatis分页插件依赖 -->
+    <dependency>
+      <groupId>com.github.pagehelper</groupId>
+      <artifactId>pagehelper</artifactId>
+      <version>4.0.0</version>
+    </dependency>
 
     <!-- alipay sdk -->
 
@@ -253,6 +259,9 @@
           <!-- 设置JDK版本 -->
           <source>1.8</source>
           <target>1.8</target>
+          <compilerArguments>
+            <extdirs>src/main/webapp/WEB-INF/lib/</extdirs>
+          </compilerArguments>
         </configuration>
       </plugin>
 

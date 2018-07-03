@@ -9,4 +9,5 @@ import com.pay.user.entity.User;
 public interface UserManageService {
     JsonResult editUserPwd(User user);
     JsonResult addChildAccount(User user);
+    JsonResult addAgentUser(User user);
 }
