@@ -9,9 +9,11 @@
 <nz-table #nzTable [nzDataSource]="data" [nzPageSize]="10">
   <thead nz-thead>
   <tr>
-    <th nz-th [nzWidth]="'40%'"><span>用户</span></th>
-    <th nz-th [nzWidth]="'30%'"><span>角色</span></th>
-    <th nz-th [nzWidth]="'30%'" *ngIf='admin'><span>操作</span></th>
+    <th nz-th ><span>用户</span></th>
+    <th nz-th ><span>角色</span></th>
+    <th nz-th ><span>代理商名称</span></th>
+    <th nz-th ><span>学校名称</span></th>
+    <th nz-th  *ngIf='admin'><span>操作</span></th>
   </tr>
   </thead>
   <tbody nz-tbody>
@@ -19,7 +21,9 @@
     <td nz-td>
       <a>{{data.phone}}</a>
     </td>
-    <td nz-td>{{data.role=='user'?'普通用户':'管理员'}}</td>
+    <td nz-td >{{data.role}}</td>
+    <td nz-td >{{data.agentName ? data.agentName : '无'}}</td>
+    <td nz-td >{{data.schoolName ? data.schoolName : '无'}}</td>
     <td nz-td *ngIf='admin'>
             <span>
                <nz-popconfirm [nzTitle]="'确定删除？'" (nzOnConfirm)="del(data)">
@@ -74,7 +78,7 @@
          </div>
          <div nz-form-control nz-col [nzSm]="14" [nzXs]="24" nzHasFeedback>
            <nz-input [nzSize]="'large'" formControlName="agentName"  [nzId]="'agentName'"></nz-input>
-           <div nz-form-explain *ngIf="getFormControl('agentName').dirty&&getFormControl('agentName').hasError('required')">请输入代理商名称!</div>
+           <div nz-form-explain *ngIf="getFormControl('agentName').dirty&&getFormControl('agentName').hasError('required')">请输入代理商!</div>
          </div>
        </div>
 
