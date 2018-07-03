@@ -25,4 +25,15 @@ public class UserManageController {
     public JsonResult addChildAccount(User user){
         return userManageService.addChildAccount(user);
     }
+
+    /**
+     * 添加代理商账号
+     * @param user
+     * @return
+     */
+    @RequestMapping("addAgentUser")
+    @ResponseBody
+    public JsonResult addAgentUser(User user){
+        return userManageService.addAgentUser(user);
+    }
 }
