@@ -4,7 +4,7 @@ package com.pay.school.entity;
  * Created by cy on 2018/7/1.
  */
 public class FileOper {
-    String fileName;   
+    String fileName;
     String filePath;
 
     public String getFileName() {

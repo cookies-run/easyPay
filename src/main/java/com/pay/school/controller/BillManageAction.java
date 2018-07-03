@@ -7,6 +7,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import javax.servlet.http.HttpServletResponse;
+
 /**
  * Created by cy on 2018/6/18.
  * 删除账单
@@ -26,5 +28,10 @@ public class BillManageAction {
     public JsonResult billExport(Integer billId){
         return billManageService.billExport(billId);
     }
-
+    @RequestMapping("downLoadSchoolBill")
+    @ResponseBody
+    public JsonResult downLoadSchoolBill(HttpServletResponse response,
+                                         String fileName,String filePath){
+        return billManageService.downLoadBill(response,fileName,filePath);
+    }
 }
