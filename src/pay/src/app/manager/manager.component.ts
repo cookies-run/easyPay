@@ -22,7 +22,9 @@ export class ManagerComponent implements OnInit {
   endpoint='login/register?';
   params:any = {
     phone:'',
-    password:''
+    password:'',
+    parentAccount:'',
+    schoolName:''
   };
 
   _submitForm() {
@@ -33,6 +35,8 @@ export class ManagerComponent implements OnInit {
     console.log(this.validateForm.value);
     this.params.phone = this.validateForm.value.phoneNumber;
     this.params.password=Md5.hashStr(this.validateForm.value.password);
+    this.params.schoolName=this.validateForm.value.schoolName
+
     this.register(this.endpoint,this.params);
   }
 
@@ -55,6 +59,7 @@ export class ManagerComponent implements OnInit {
       password         : [ null, [ Validators.required ] ],
       checkPassword    : [ null, [ Validators.required, this.confirmationValidator ] ],
       phoneNumber      : [ null, [ Validators.required ] ],
+      schoolName       : [ null, [ Validators.required ] ]
     });
   }
 
@@ -62,6 +67,15 @@ export class ManagerComponent implements OnInit {
     this.router.navigate(['/home/UserList']);
   }
 
+  phoneLenthValidator = (control: FormControl): { [s: string]: boolean } => {
+   if (!control.value) {
+     return { required: true };
+   } else if (control.value.length>36) {
+     return { confirm: true, error: true };
+   }else if(/[\u4E00-\u9FA5]/g.test(control.value)){
+     return{limitChinese:true,error:true};
+   }
+  };
 
   showConfirm = () => {
     let hh = this;
@@ -97,11 +111,21 @@ export class ManagerComponent implements OnInit {
 
 
   ngOnInit() {
+    let role = sessionStorage.getItem('role');
+    if(role && role =='agentUser'){
+        this.params.parentAccount = sessionStorage.getItem('phone');
+    }else {
+       this.params.parentAccount = 'null'
+    }
+
+
     this.validateForm = this.fb.group({
       password         : [ null, [ Validators.required ] ],
       checkPassword    : [ null, [ Validators.required, this.confirmationValidator ] ],
-      phoneNumber      : [ null, [ Validators.required ] ],
+      phoneNumber      : [ null, [ Validators.required,this.phoneLenthValidator] ],
+      schoolName       : [ null, [ Validators.required ] ]
     });
+
   }
 
   getFormControl(name) {

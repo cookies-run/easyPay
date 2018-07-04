@@ -224,18 +224,19 @@ public class SchoolServiceImpl implements SchoolService {
     }
 
     @Override
-    public PageInfo<StudentBill> getStudentBill(Integer id, Integer pageNo, Integer pageSize) {
+    public PageInfo<StudentBill> getStudentBill(Integer id,Integer pageNo,Integer pageSize) {
         pageNo = pageNo == null?1:pageNo;
         pageSize = pageSize ==null?10:pageSize;
         PageHelper.startPage(pageNo,pageSize);
         List<StudentBill> studentBills = schoolDao.getStudentBillById(id);
         //用PageInfo对结果进行包装
         PageInfo<StudentBill> realStudentBills = new PageInfo<StudentBill>(studentBills);
+
         AlipayClient alipayClient = PrivateKeySignature.getClient();
         User user = getShiroUser();
         String schoolNo = shiroDao.getShiroSchoolNo(user.getPhone());
         String schoolPId = shiroDao.getShiroSchoolPId(schoolNo);
-        for(StudentBill bean: studentBills){
+        for(StudentBill bean: realStudentBills.getList()){
             //循环查询账单状态
             AlipayEcoEduKtBillingQueryRequest request = new AlipayEcoEduKtBillingQueryRequest();
             request.setBizContent("{" +

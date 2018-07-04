@@ -2,16 +2,27 @@
 <form nz-form [formGroup]="validateForm" (ngSubmit)="_submitForm()">
   <div nz-form-item nz-row style="margin-top: 50px;">
     <div nz-form-label nz-col [nzSm]="6" [nzXs]="24">
-      <label for="phoneNumber" nz-form-item-required>手机号码</label>
+      <label for="phoneNumber" nz-form-item-required>用户名：</label>
     </div>
     <div nz-form-control nz-col [nzSm]="14" [nzXs]="24" nzHasFeedback [nzValidateStatus]="validateForm.controls['phoneNumber']">
       <input formControlName="phoneNumber" id="'phoneNumber'" nz-input >
-      <div nz-form-explain *ngIf="getFormControl('phoneNumber').dirty&&getFormControl('phoneNumber').hasError('required')">请输入你的手机号码!</div>
+      <div nz-form-explain *ngIf="getFormControl('phoneNumber').dirty&&getFormControl('phoneNumber').hasError('required')">请输入你的用户名!</div>
+      <div nz-form-explain *ngIf="getFormControl('phoneNumber').dirty&&getFormControl('phoneNumber').hasError('confirm')">长度不可以超过36字节!</div>
+      <div nz-form-explain *ngIf="getFormControl('phoneNumber').dirty&&getFormControl('phoneNumber').hasError('limitChinese')">用户名不可为中文!</div>
+    </div>
+  </div>
+  <div nz-form-item nz-row >
+    <div nz-form-label nz-col [nzSm]="6" [nzXs]="24">
+      <label for="schoolName" nz-form-item-required>学校名称：</label>
+    </div>
+    <div nz-form-control nz-col [nzSm]="14" [nzXs]="24" nzHasFeedback [nzValidateStatus]="validateForm.controls['schoolName']">
+      <input formControlName="schoolName" id="'schoolName'" nz-input >
+      <div nz-form-explain *ngIf="getFormControl('schoolName').dirty&&getFormControl('schoolName').hasError('required')">请输入你的学校名称!</div>
     </div>
   </div>
   <div nz-form-item nz-row>
     <div nz-form-label nz-col [nzSm]="6" [nzXs]="24">
-      <label for="password" nz-form-item-required>密码</label>
+      <label for="password" nz-form-item-required>密码：</label>
     </div>
     <div nz-form-control nz-col [nzSm]="14" [nzXs]="24" nzHasFeedback>
       <nz-input [nzSize]="'large'" formControlName="password" [nzType]="'password'" [nzId]="'password'" (ngModelChange)="updateConfirmValidator()"></nz-input>
@@ -20,7 +31,7 @@
   </div>
   <div nz-form-item nz-row>
     <div nz-form-label nz-col [nzSm]="6" [nzXs]="24">
-      <label for="checkPassword" nz-form-item-required>再次密码</label>
+      <label for="checkPassword" nz-form-item-required>再次密码：</label>
     </div>
     <div nz-form-control nz-col [nzSm]="14" [nzXs]="24" nzHasFeedback>
       <nz-input [nzSize]="'large'" formControlName="checkPassword" [nzType]="'password'" [nzId]="'checkPassword'"></nz-input>
