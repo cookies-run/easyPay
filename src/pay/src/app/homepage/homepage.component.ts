@@ -118,22 +118,17 @@ export class HomepageComponent implements OnInit {
     this.phone = sessionStorage.getItem('phone');
     if(role=='admin' || role =='agentUser'){
       this.admin = true;
+      this.router.navigate(['/home/UserList']);
     }else {
       this.admin = false;
-    }
-
-    if(role){
       if(role=='childUser'){
         this.childUser = true;
         this.router.navigate(['/home/PengdingBills']);
       }else {
         this.childUser = false;
-          this.router.navigate(['/home/checkPower']);
+        this.router.navigate(['/home/checkPower']);
       }
-    }else {
-      this.childUser = false;
     }
-
 
      this.validateForm = this.fb.group({
       oldPassword       : [ null, [ Validators.required ] ],
