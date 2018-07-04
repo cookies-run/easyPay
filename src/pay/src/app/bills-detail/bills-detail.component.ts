@@ -48,8 +48,9 @@ export class BillsDetailComponent implements OnInit {
        }
       this.appService.get('billExport',downloadParams).subscribe(data =>{
               if(data.json().suc){
-                let datas = data.json().data.filePath;
-                window.location.href = `/${datas}`
+                let path = data.json().data.filePath
+                let name = data.json().data.fileName
+                window.location.href = `/downLoadSchoolBill?&fileName=${name}&filePath=${Path}`
               }else {
                   this.msg.error(data.json().msg);
               }
