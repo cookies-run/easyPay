@@ -8,7 +8,7 @@
         UPDATE student_bill
         <set>
           trade_no=#{trade_no},
-            trade_status=#{trade_status},
+          trade_status=#{trade_status}
         </set>
         WHERE out_trade_no = #{out_trade_no}
     </update>

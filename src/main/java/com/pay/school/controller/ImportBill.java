@@ -49,7 +49,7 @@ public class ImportBill {
 
     @RequestMapping(value = "/importBill")
     @ResponseBody
-    public JsonResult importBill(MultipartFile file){
+    public JsonResult importBill(MultipartFile[] files){
         JsonResult jsonResult = null;
         Date curDate = new Date(System.currentTimeMillis());//获取当前时间
         String time = sdf.format(curDate);
@@ -62,6 +62,7 @@ public class ImportBill {
             childUser = user.getPhone();
         }
         try {
+            for(MultipartFile file : files){
                 InputStream in = file.getInputStream();
                 //excel
                 Workbook workbook = null;
@@ -135,6 +136,9 @@ public class ImportBill {
                 bill.setChildUser(childUser);
 
                 jsonResult = schoolService.addStudentBill(bill,studentBills);
+
+            }
+
 
 
         } catch (IOException e) {
