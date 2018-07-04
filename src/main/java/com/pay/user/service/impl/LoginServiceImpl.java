@@ -39,8 +39,15 @@ public class LoginServiceImpl implements LoginService{
     @Override
     public JsonResult register(User user) {
         JsonResult jsonResult = null;
-
+        User shiroUser  = getShiroUser();
+        String role = shiroUser.getRole();
+        if(!"admin".equals(role)){
+            String parentAccount = shiroUser.getPhone();
+            user.setParentAccount(parentAccount);
+        }
         int i = loginDao.register(user);
+
+
         if(i>0){
             jsonResult = new JsonResult(i,"新增用户成功",true);
         }else {
@@ -61,8 +68,8 @@ public class LoginServiceImpl implements LoginService{
         JsonResult jsonResult = null;
         User user = getShiroUser();
         String role = user.getRole();
-        String schoolAccount = user.getPhone();
-        List<User> users = loginDao.getUserList(role,schoolAccount);
+        String parentAccount = user.getPhone();
+        List<User> users = loginDao.getUserList(role,parentAccount);
         if(users.size()>0){
             jsonResult = new JsonResult(users,"用户列表",true);
         }else{

@@ -63,5 +63,30 @@ public class UserManageServiceImpl implements UserManageService{
         }
         return jsonResult;
     }
+    public JsonResult addAgentUser(User user){
+        JsonResult jsonResult = new JsonResult(null,"添加代理商账号失败！",false);
+        String password = user.getPassword();
+        String surePassword = user.getSurePassword();
+//        if(password!=null){
+//            if(!password.equals(surePassword)){
+//                jsonResult = new JsonResult(null,"两次输入密码不一致！",false);
+//            }else{
+//                int addCount = userManageDao.addAgentUser(user);
+//                if(addCount>0){
+//                    jsonResult = new JsonResult(null,"添加代理商账号成功！",true);
+//                }else{
+//                    jsonResult = new JsonResult(null,"添加代理商账号失败！",false);
+//                }
+//            }
+//        }
+            int addCount = userManageDao.addAgentUser(user);
+            if(addCount>0){
+                jsonResult = new JsonResult(null,"添加代理商账号成功！",true);
+            }else{
+                jsonResult = new JsonResult(null,"添加代理商账号失败！",false);
+            }
+        return jsonResult;
+    }
+
 
 }
