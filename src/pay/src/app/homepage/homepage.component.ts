@@ -116,11 +116,12 @@ export class HomepageComponent implements OnInit {
   ngOnInit() {
     let role = sessionStorage.getItem('role');
     this.phone = sessionStorage.getItem('phone');
-    if(this.phone=='admin'){
+    if(role=='admin' || role =='agentUser'){
       this.admin = true;
     }else {
       this.admin = false;
     }
+
     if(role){
       if(role=='childUser'){
         this.childUser = true;

@@ -11,8 +11,13 @@ import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+
 import javax.servlet.http.HttpServletResponse;
 import java.io.*;
+
+import java.io.FileOutputStream;
+import java.io.IOException;
+
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
@@ -43,7 +48,9 @@ public class BillManageServiceImpl implements BillManageService {
     }
     public JsonResult billExport(Integer billId){
         JsonResult jsonResult = new JsonResult(null,"账单导出失败！",false);
+
         FileOutputStream out = null;
+
         SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd-HH-mm-ss");
         try{
             //根据账单id获取账单详情列表
@@ -68,30 +75,36 @@ public class BillManageServiceImpl implements BillManageService {
             String rootPath = System.getProperty("java.io.tmpdir").replace("\\","/");
             String filePath = rootPath+"/"+fileName;
             filePath = filePath.replace("\\","/");
+
             out = new FileOutputStream(filePath);
             wb.write(out);
             out.flush();
             out.close();
+
+            out = new FileOutputStream(filePath);
+            wb.write(out);
+            out.flush();
+            try{
+                out.close();
+
+            }catch (IOException e){
+                jsonResult.setMsg("导出账单详情异常！"+e);
+            }
+
             FileOper fileOper = new FileOper();
             fileOper.setFileName(fileName);
             fileOper.setFilePath(filePath);
             jsonResult.setMsg("导出成功！");
             jsonResult.setSuc(true);
             jsonResult.setData(fileOper);
-        }catch (IOException e){
-            jsonResult.setMsg("IO异常！"+e);
+
         }catch (Exception e){
             jsonResult.setMsg("导出账单详情异常！"+e);
             e.printStackTrace();
-        }finally {
-            try{
-                out.close();
-            }catch (Exception e){
-                jsonResult.setMsg("IO流关闭异常！"+e);
-            }
         }
         return jsonResult;
     }
+  
     public JsonResult downLoadBill(HttpServletResponse response,String fileNmae,String filePath) {
         JsonResult jsonResult = new JsonResult(null,"excel下载失败！",false);
         OutputStream outputStream=null;
