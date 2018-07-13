@@ -35,10 +35,6 @@ export class SchoolInfoComponent implements OnInit {
     cityName:'',
     districtCode:'',
     districtName:'',
-    isvName:'',
-    isvNotifyUrl:'',
-    isvPid:'',
-    isvPhone:'',
     schoolPid :''
   }
 
@@ -70,24 +66,12 @@ export class SchoolInfoComponent implements OnInit {
      setTimeout(_ => {
        this.isLoadingOne = false;
      }, 5000);
-   console.log(this.validateForm.value)
-    console.log(this.params)
     if(this.validateForm.valid){
       this.params.schoolName = this.validateForm.value.schoolName;
       this.params.schoolType = this.validateForm.value.schoolType;
-      this.params.isvName = this.validateForm.value.isvName;
-      this.params.isvNotifyUrl = this.validateForm.value.isvNotifyUrl;
-      this.params.isvPid = this.validateForm.value.isvPid;
-      this.params.isvPhone = this.validateForm.value.isvPhone;
       this.params.schoolPid = this.validateForm.value.schoolPid;
-      if(this.params.isvName.length>256){
-       this.createMessage('error','商家名称不可超过256字');
-       return;
-     }else if(this.params.schoolName.length>256){
+     if(this.params.schoolName.length>256){
        this.createMessage('error','学校名称不可超过256字');
-       return;
-     }else if(this.params.isvNotifyUrl.length>256){
-       this.createMessage('error','通知地址不可超过256字');
        return;
      }else {
        //保存学校信息
@@ -123,10 +107,6 @@ export class SchoolInfoComponent implements OnInit {
          schoolType       : [ res.schoolType,  [ Validators.required ] ],
          schoolName       : [ res.schoolName, [ Validators.required ] ],
          address          : [ [res.provinceName,res.cityName,res.districtName], [ Validators.required ] ],
-         isvName          : [ res.isvName, [ Validators.required ] ],
-         isvNotifyUrl     : [ res.isvNotifyUrl, [ Validators.required ] ],
-         isvPid           : [ res.isvPid, [ Validators.required ] ],
-         isvPhone         : [ res.isvPhone, [ Validators.required ] ],
          schoolPid        : [ res.schoolPid, [ Validators.required ] ]
        })
 
@@ -143,10 +123,6 @@ export class SchoolInfoComponent implements OnInit {
       schoolType       : [ null,  [ Validators.required ] ],
       schoolName       : [ null, [ Validators.required ] ],
       address          : [ null, [ Validators.required ] ],
-      isvName          : [ null, [ Validators.required ] ],
-      isvNotifyUrl     : [ null, [ Validators.required ] ],
-      isvPid           : [ null, [ Validators.required ] ],
-      isvPhone         : [ null, [ Validators.required ] ],
       schoolPid        : [ null, [ Validators.required ] ]
     })
       let ifAppAuthToken = sessionStorage.getItem('appauthtoken');
