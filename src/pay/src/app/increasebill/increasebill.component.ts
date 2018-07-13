@@ -28,7 +28,7 @@ export class IncreasebillComponent implements OnInit {
     handleUpload() {
       const formData = new FormData();
       this.fileList.forEach((file: any) => {
-        formData.append('file', file);
+        formData.append('files', file);
       });
       this.uploading = true;
       // You can use any AJAX library you like
