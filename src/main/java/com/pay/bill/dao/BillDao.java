@@ -1,5 +1,6 @@
 package com.pay.bill.dao;
 
+import com.pay.school.entity.StudentBill;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
 
@@ -9,4 +10,6 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface BillDao {
     int saveBillTradeNo(@Param("trade_no") String trade_no, @Param("out_trade_no") String out_trade_no, @Param("trade_status") String trade_status);
+
+    void saveAliBack(@Param("studentbill")StudentBill studentbill);
 }

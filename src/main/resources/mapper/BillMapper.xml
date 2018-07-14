@@ -13,4 +13,13 @@
         WHERE out_trade_no = #{out_trade_no}
     </update>
 
+    <update id="saveAliBack" parameterType="com.pay.school.entity.StudentBill">
+        UPDATE student_bill
+        <set>
+            order_no=#{studentbill.orderNo},
+            trade_status=#{studentbill.tradeStatus}
+        </set>
+        WHERE out_trade_no = #{studentbill.outTradeNo}
+    </update>
+
 </mapper>

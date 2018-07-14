@@ -118,22 +118,29 @@ public class StudentBill {
     @Column(name = "partner_id")
     private String partnerId;
 
-    private String orderStatus;
-
-    public String getOrderStatus() {
-        return orderStatus;
-    }
-
-    public void setOrderStatus(String orderStatus) {
-        this.orderStatus = orderStatus;
-    }
-
     /**
      * 孩子的家长信息，最多一次输入10个家长，此字段做为识别家长的孩子用，与student_identify、student_code至少选一个
      */
     private String users;
 
-    public StudentBill(Integer id, Integer billId, Integer order, String studentIdentify, String schoolNo, String childName, String grade, String classIn, String studentCode, String chargeType, BigDecimal amount, String gmtEnd, String endEnable, String chargeItem, String outTradeNo, String chargeBillTitle, String phone, Date time, String orderNo, String partnerId, String users) {
+    /**
+     * 0-删除1-正常
+     */
+    private Boolean status;
+
+    /**
+     * 异步回调获取的真实账单号
+     */
+    @Column(name = "trade_no")
+    private String tradeNo;
+
+    /**
+     * 异步回调获取的账单状态
+     */
+    @Column(name = "trade_status")
+    private String tradeStatus;
+
+    public StudentBill(Integer id, Integer billId, Integer order, String studentIdentify, String schoolNo, String childName, String grade, String classIn, String studentCode, String chargeType, BigDecimal amount, String gmtEnd, String endEnable, String chargeItem, String outTradeNo, String chargeBillTitle, String phone, Date time, String orderNo, String partnerId, String users, Boolean status, String tradeNo, String tradeStatus) {
         this.id = id;
         this.billId = billId;
         this.order = order;
@@ -155,6 +162,9 @@ public class StudentBill {
         this.orderNo = orderNo;
         this.partnerId = partnerId;
         this.users = users;
+        this.status = status;
+        this.tradeNo = tradeNo;
+        this.tradeStatus = tradeStatus;
     }
 
     public StudentBill() {
@@ -541,5 +551,59 @@ public class StudentBill {
      */
     public void setUsers(String users) {
         this.users = users == null ? null : users.trim();
+    }
+
+    /**
+     * 获取0-删除1-正常
+     *
+     * @return status - 0-删除1-正常
+     */
+    public Boolean getStatus() {
+        return status;
+    }
+
+    /**
+     * 设置0-删除1-正常
+     *
+     * @param status 0-删除1-正常
+     */
+    public void setStatus(Boolean status) {
+        this.status = status;
+    }
+
+    /**
+     * 获取异步回调获取的真实账单号
+     *
+     * @return trade_no - 异步回调获取的真实账单号
+     */
+    public String getTradeNo() {
+        return tradeNo;
+    }
+
+    /**
+     * 设置异步回调获取的真实账单号
+     *
+     * @param tradeNo 异步回调获取的真实账单号
+     */
+    public void setTradeNo(String tradeNo) {
+        this.tradeNo = tradeNo == null ? null : tradeNo.trim();
+    }
+
+    /**
+     * 获取异步回调获取的账单状态
+     *
+     * @return trade_status - 异步回调获取的账单状态
+     */
+    public String getTradeStatus() {
+        return tradeStatus;
+    }
+
+    /**
+     * 设置异步回调获取的账单状态
+     *
+     * @param tradeStatus 异步回调获取的账单状态
+     */
+    public void setTradeStatus(String tradeStatus) {
+        this.tradeStatus = tradeStatus == null ? null : tradeStatus.trim();
     }
 }

@@ -64,26 +64,26 @@ export class BillsDetailComponent implements OnInit {
           let datas = data.json().data.list;
           this._total = data.json().data.total;
         for(let i =0;i<datas.length;i++){
-           if(datas[i].orderStatus =='NOT_PAY'){ //处理数据
-             datas[i].status = '待缴费'
+           if(datas[i].tradeStatus =='NOT_PAY'){ //处理数据
+             datas[i].tradeStatus = '待缴费'
            }
-           if(datas[i].orderStatus =='PAYING'){
-              datas[i].status = '支付中'
+           if(datas[i].tradeStatus =='PAYING'){
+              datas[i].tradeStatus = '支付中'
            }
-           if(datas[i].orderStatus =='PAY_SUCCESS'){
-              datas[i].status = '支付成功，待处理'
+           if(datas[i].tradeStatus =='PAY_SUCCESS'){
+              datas[i].tradeStatus = '支付成功，待处理'
            }
-           if(datas[i].orderStatus =='BILLING_SUCCESS'){
-              datas[i].status = '缴费成功'
+           if(datas[i].tradeStatus =='BILLING_SUCCESS'){
+              datas[i].tradeStatus = '缴费成功'
            }
-           if(datas[i].orderStatus =='TIMEOUT_CLOSED'){
-              datas[i].status = '逾期关闭账单'
+           if(datas[i].tradeStatus =='TIMEOUT_CLOSED'){
+              datas[i].tradeStatus = '逾期关闭账单'
            }
-           if(datas[i].orderStatus =='ISV_CLOSED'){
-              datas[i].status = '账单关闭'
+           if(datas[i].tradeStatus =='ISV_CLOSED'){
+              datas[i].tradeStatus = '账单关闭'
            }
-          if(datas[i].orderStatus =='UNKNOWN'){
-            datas[i].status = '暂未查到'
+          if(datas[i].tradeStatus =='UNKNOWN'){
+            datas[i].tradeStatus = '暂未查到'
           }
         }
         this.details = datas

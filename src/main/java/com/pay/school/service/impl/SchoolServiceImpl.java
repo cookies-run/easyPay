@@ -12,6 +12,7 @@ import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import com.pay.alipay.utils.PrivateKeySignature;
 
+import com.pay.bill.dao.BillDao;
 import com.pay.core.entity.JsonResult;
 import com.pay.school.dao.SchoolDao;
 import com.pay.school.dao.ShiroDao;
@@ -58,6 +59,9 @@ public class SchoolServiceImpl implements SchoolService {
     private LoginDao loginDao;
     @Autowired
     private ShiroDao shiroDao;
+    @Autowired
+    private BillDao billDao;
+
 
     private static String ISV_PID = "";
     private static String ISV_PHONE = "";
@@ -247,10 +251,11 @@ public class SchoolServiceImpl implements SchoolService {
             try {
                 AlipayEcoEduKtBillingQueryResponse response = alipayClient.execute(request);
                 if(response.isSuccess()){
-                    bean.setOrderStatus(response.getOrderStatus());
+                    bean.setTradeStatus(response.getOrderStatus());
                 } else {
-                    bean.setOrderStatus("UNKNOWN");
+                    bean.setTradeStatus("UNKNOWN");
                 }
+                billDao.saveAliBack(bean);
             } catch (AlipayApiException e) {
                 e.printStackTrace();
             }

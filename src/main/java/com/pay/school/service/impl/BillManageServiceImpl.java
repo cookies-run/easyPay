@@ -22,6 +22,8 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 
+import static com.pay.common.utils.BillStatus.FormatTradeStatus;
+
 /**
  * Created by cy on 2018/6/18.
  */
@@ -59,16 +61,18 @@ public class BillManageServiceImpl implements BillManageService {
                 return null;
             }
             //excel标题
-            String[] title = {"姓名","金额","账单状态"};
+            String[] title = {"姓名","年级","金额","账单状态"};
             //excel文件名
             String fileName = format.format(new Date())+" "+studentBills.get(0).getChargeBillTitle()+".xls";
             //sheet名
             String sheetName = "账单明细";
-            String content[][] = new String[studentBills.size()][2];
+            String content[][] = new String[studentBills.size()][4];
             for (int i = 0; i < studentBills.size(); i++) {
                 StudentBill studentBill = studentBills.get(i);
                 content[i][0] = studentBill.getChildName();
-                content[i][1] = studentBill.getAmount().toString();
+                content[i][1] = studentBill.getClassIn();
+                content[i][2] = studentBill.getAmount().toString();
+                content[i][3] = FormatTradeStatus(studentBill.getTradeStatus());
             }
             //创建HSSFWorkbook
             HSSFWorkbook wb = ExcelUtil.getHSSFWorkbook(sheetName, title, content, null);

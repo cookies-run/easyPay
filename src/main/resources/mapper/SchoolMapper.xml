@@ -41,7 +41,7 @@
             (school_name,school_icon,school_icon_type,school_stdcode,school_type,province_code,province_name,city_code,city_name,district_code,district_name,isv_name,isv_notify_url,isv_pid,isv_phone,school_pid,school_no)
             VALUES
             (#{school.schoolName},#{school.schoolIcon},#{school.schoolIconType},#{school.schoolStdcode},#{school.schoolType},#{school.provinceCode},#{school.provinceName},
-            #{school.cityCode},#{school.cityName},#{school.districtCode},#{school.districtName},'宿迁云猫电子商务有限公司','http://k12pay.com/notify/payNotify','2088221439451601','0527-87024016',#{school.schoolPid},#{school.schoolNo})
+            #{school.cityCode},#{school.cityName},#{school.districtCode},#{school.districtName},#{school.isvName},#{school.isvNotifyUrl},#{school.isvPid},#{school.isvPhone},#{school.schoolPid},#{school.schoolNo})
 
     </insert>
 
